@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MelonLoader;
+using System;
+using UnityEngine;
 
 namespace PhasmoMelonMod
 {
@@ -140,6 +142,22 @@ namespace PhasmoMelonMod
                     default:
                         Main.ghostState = "Idle";
                         break;
+                }
+            }
+            if (MissionManager.field_Public_Static_MissionManager_0.field_Public_List_1_Mission_0 != null)
+            {
+                int missionNum = 1;
+                foreach (Mission mission in MissionManager.field_Public_Static_MissionManager_0.field_Public_List_1_Mission_0)
+                {
+                    GUI.Label(new Rect(10f, 80f + (float)missionNum * 15f, 600f, 50f), string.Concat(new object[]
+                    {
+                        ((mission.field_Public_Boolean_0) ? "<color=#CCCCCC>" : "<color=#00FF00>"),
+                        "<b>" + missionNum + "</b>",
+                        ") ",
+                        mission.field_Public_String_0,
+                        "</color>"
+                    }));
+                    missionNum++;
                 }
             }
         }
