@@ -10,7 +10,7 @@ Place the generated DLL into the MelonLoader Mods folder.
 \- Basic Ghost Informations (Ghost Name/Type/State, responds to)  
 \- Revealed Evidence  
 \- Own Insanity  
-~~\- Active and completed Missions~~  
+\- Active and completed Missions  
 \- Console Window for Logging
 
 
@@ -22,4 +22,4 @@ Left Arrow = Information Box
 
 **Screenshots**  
 \- [Mod v.1](Images/v1.png)  
-
+\- [Mod v.2](Images/v2.png)  
