@@ -18,6 +18,8 @@ Place the generated DLL into the MelonLoader Mods folder.
 Up Arrow = ESP  
 Down Arrow = Fullbright  
 Left Arrow = Information Box
+Right Arrow = Trolling UI
+Inert = Cheat UI
 
 
 **Screenshots**  
