@@ -19,7 +19,7 @@ Up Arrow = ESP
 Down Arrow = Fullbright  
 Left Arrow = Information Box
 Right Arrow = Trolling UI
-Inert = Cheat UI
+Insert = Cheat UI
 
 
 **Screenshots**  
