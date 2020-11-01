@@ -8,7 +8,7 @@ namespace PhasmoMelonMod
     {
         public static void Enable()
         {
-            if (Main.ghostInfo != null && firstRun)
+            if (Main.levelController != null && Main.ghostInfo != null && firstRun)
             {
                 Main.ghostNameAge = Main.ghostInfo.field_Public_ValueTypePublicSealedObInBoStInBoInInInUnique_0.field_Public_String_0 + " - " + Main.ghostInfo.field_Public_ValueTypePublicSealedObInBoStInBoInInInUnique_0.field_Public_Int32_0.ToString();
                 Main.ghostType = Main.ghostInfo.field_Public_ValueTypePublicSealedObInBoStInBoInInInUnique_0.field_Public_EnumNPublicSealedvanoSpWrPhPoBaJiMaReUnique_0.ToString();
@@ -60,7 +60,7 @@ namespace PhasmoMelonMod
 
             Main.myPlayerSanity = Math.Round(100 - Main.player.field_Public_Single_0, 0).ToString();
 
-            if (Main.ghostAI != null)
+            if (Main.levelController != null && Main.ghostAI != null)
             {
                 switch (Main.ghostAI.field_Public_EnumNPublicSealedvaidwahufalidothfuapUnique_0)
                 {
@@ -144,7 +144,8 @@ namespace PhasmoMelonMod
                         break;
                 }
             }
-            if (MissionManager.field_Public_Static_MissionManager_0.field_Public_List_1_Mission_0 != null)
+
+            if (Main.levelController != null && MissionManager.field_Public_Static_MissionManager_0.field_Public_List_1_Mission_0 != null)
             {
                 int missionNum = 1;
                 foreach (Mission mission in MissionManager.field_Public_Static_MissionManager_0.field_Public_List_1_Mission_0)
