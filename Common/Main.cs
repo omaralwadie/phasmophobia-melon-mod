@@ -73,20 +73,22 @@ namespace PhasmoMelonMod
             {
                 CheatToggles.enableTrolling = !CheatToggles.enableTrolling;
                 MelonLogger.Log("[+] Trolling UI: Toggled " + (CheatToggles.enableTrolling ? "On" : "Off"));
-                CheatToggles.enableCheating = false;
-                MelonLogger.Log("[+] Cheating UI: Toggled " + (CheatToggles.enableCheating ? "On" : "Off"));
+                //CheatToggles.enableCheating = false;
+                //MelonLogger.Log("[+] Cheating UI: Toggled " + (CheatToggles.enableCheating ? "On" : "Off"));
             }
 
             if (keyboard.insertKey.wasPressedThisFrame)
             {
                 CheatToggles.enableCheating = !CheatToggles.enableCheating;
                 MelonLogger.Log("[+] Cheating UI: Toggled " + (CheatToggles.enableCheating ? "On" : "Off"));
-                CheatToggles.enableTrolling = false;
-                MelonLogger.Log("[+] Trolling UI: Toggled " + (CheatToggles.enableTrolling ? "On" : "Off"));
+                //CheatToggles.enableTrolling = false;
+                //MelonLogger.Log("[+] Trolling UI: Toggled " + (CheatToggles.enableTrolling ? "On" : "Off"));
             }
 
             if (keyboard.deleteKey.wasPressedThisFrame)
             {
+                CheatToggles.enableDebug = !CheatToggles.enableDebug;
+                MelonLogger.Log("[+] Debug: Toggled " + (CheatToggles.enableDebug ? "On" : "Off"));
             }
         }
         public override void OnGUI()
@@ -113,23 +115,23 @@ namespace PhasmoMelonMod
 
             if(CheatToggles.enableTrolling)
             {
-                if (initializedScene > 1)
+                if (1 == 1)
                 {
                     if (GUI.Button(new Rect(500f, 2f, 100f, 20f), "Hunt") && levelController != null)
                     {
-                        //Trolling.Hunt();
+                        Trolling.Hunt();
                     }
                     if (GUI.Button(new Rect(500f, 22f, 100f, 20f), "Idle") && levelController != null)
                     {
-                        //Trolling.Idle();
+                        Trolling.Idle();
                     }
                     if (GUI.Button(new Rect(500f, 42f, 100f, 20f), "Appear") && levelController != null)
                     {
-                        //Trolling.Appear();
+                        Trolling.Appear();
                     }
                     if (GUI.Button(new Rect(500f, 62f, 100f, 20f), "Unappear") && levelController != null)
                     {
-                        //Trolling.UnAppear();
+                        Trolling.UnAppear();
                     }
                 }
                 else
@@ -140,28 +142,28 @@ namespace PhasmoMelonMod
 
             if (CheatToggles.enableCheating)
             {
-                if (initializedScene == 1)
+                if (1 == 1)
                 {
-                    if (GUI.Button(new Rect(500f, 2f, 100f, 20f), "+ 1.000$") && levelController == null)
+                    if (GUI.Button(new Rect(600f, 2f, 100f, 20f), "+ 1.000$") && levelController == null)
                     {
                         FileBasedPrefs.SetInt("PlayersMoney", FileBasedPrefs.GetInt("PlayersMoney", 0) + 1000);
                     }
-                    if (GUI.Button(new Rect(500f, 22f, 100f, 20f), "+ 100XP") && levelController == null)
+                    if (GUI.Button(new Rect(600f, 22f, 100f, 20f), "+ 100XP") && levelController == null)
                     {
                         FileBasedPrefs.SetInt("myTotalExp", FileBasedPrefs.GetInt("myTotalExp", 0) + 100);
                     }
-                    if (GUI.Button(new Rect(500f, 42f, 100f, 20f), "- 1.000$") && levelController == null)
+                    if (GUI.Button(new Rect(600f, 42f, 100f, 20f), "- 1.000$") && levelController == null)
                     {
                         FileBasedPrefs.SetInt("PlayersMoney", FileBasedPrefs.GetInt("PlayersMoney", 0) - 1000);
                     }
-                    if (GUI.Button(new Rect(500f, 62f, 100f, 20f), "- 1.000XP") && levelController == null)
+                    if (GUI.Button(new Rect(600f, 62f, 100f, 20f), "- 1.000XP") && levelController == null)
                     {
                         FileBasedPrefs.SetInt("myTotalExp", FileBasedPrefs.GetInt("myTotalExp", 0) - 1000);
                     }
                 }
                 else
                 {
-                    GUI.Label(new Rect(500f, 2f, 300f, 50f), "<color=#F40000><b>XP & Money only in the lobby aviable!</b></color>");
+                    GUI.Label(new Rect(500f, 2f, 300f, 50f), "<color=#F40000><b>XP & Money only aviable in the lobby!</b></color>");
                 }
                
             }
@@ -177,7 +179,6 @@ namespace PhasmoMelonMod
             CheatToggles.enableEsp = false;
             CheatToggles.enableFullbright = false;
             CheatToggles.enableTrolling = false;
-            Fullbright.Disable();
         }
 
         IEnumerator CollectGameObjects()
@@ -192,7 +193,7 @@ namespace PhasmoMelonMod
 
             gameController = Object.FindObjectOfType<GameController>();
             yield return new WaitForSeconds(0.15f);
-            Debug.Out("camegameControllerraMain");
+            Debug.Out("gameController");
 
             ghostAI = Object.FindObjectOfType<GhostAI>();
             yield return new WaitForSeconds(0.15f);
@@ -214,34 +215,36 @@ namespace PhasmoMelonMod
             yield return new WaitForSeconds(0.15f);
             Debug.Out("ouijaBoards");
 
-            player = Object.FindObjectOfType<Player>() ?? null;
-            yield return new WaitForSeconds(0.15f);
-            Debug.Out("player");
-
-            playerAnim = player.field_Public_Animator_0 ?? null;
-            yield return new WaitForSeconds(0.15f);
-            Debug.Out("playerAnim");
-
-            if(playerAnim != null)
+            if (Object.FindObjectOfType<Player>() != null)
             {
-                boneTransform = playerAnim.GetBoneTransform(HumanBodyBones.Head) ?? null;
+                player = Object.FindObjectOfType<Player>() ?? null;
                 yield return new WaitForSeconds(0.15f);
-                Debug.Out("boneTransform");
-                if (boneTransform != null)
+                Debug.Out("player");
+
+                playerAnim = player.field_Public_Animator_0 ?? null;
+                yield return new WaitForSeconds(0.15f);
+                Debug.Out("playerAnim");
+
+                if (playerAnim != null)
                 {
-                    light = boneTransform.GetComponent<Light>() ?? null;
+                    boneTransform = playerAnim.GetBoneTransform(HumanBodyBones.Head) ?? null;
                     yield return new WaitForSeconds(0.15f);
-                    Debug.Out("light");
+                    Debug.Out("boneTransform");
+                    if (boneTransform != null)
+                    {
+                        light = boneTransform.GetComponent<Light>() ?? null;
+                        yield return new WaitForSeconds(0.15f);
+                        Debug.Out("light");
+                    }
                 }
             }
-            
             if (levelController != null)
             {
                 photonView = ghostAI.field_Public_PhotonView_0 ?? null;
                 yield return new WaitForSeconds(0.15f);
-                Debug.Out("cameraMain");
+                Debug.Out("photonView");
             }
-
+            Debug.Out("-----------------------------");
             yield return null;
         }
 
