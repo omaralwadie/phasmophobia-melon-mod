@@ -37,3 +37,9 @@ Delete = Enable debug output
 ```<Reference Include="Assembly-CSharp"><HintPath>**.dll</HintPath></Reference>```  
 to link to your Steams Phasmophobia directory
 4. Compile (Release) and move the `obj\Release\PhasmoMelonMod.dll` to the Mod folder inside your Phasmophobia directory
+
+
+
+# Credits
+**Fullbright:** *ShieldSupporterfor* sharing the code from *Plagues*  
+**2D Box ESP:** *EBro912*
