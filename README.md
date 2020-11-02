@@ -11,7 +11,7 @@ Place the generated DLL into the MelonLoader Mods folder.
 \- Revealed Evidence  
 \- Own Insanity  
 \- Active and completed Missions  
-\- Console Window for Logging
+\- Console Window for Logging (MelonLoader)
 
 
 **Hotkeys**  
@@ -19,7 +19,8 @@ Up Arrow = ESP
 Down Arrow = Fullbright  
 Left Arrow = Information Box  
 Right Arrow = Trolling UI  
-Insert = Cheat UI
+Insert = Cheat UI  
+Demete Key = Enable debug output
 
 
 **Screenshots**  
