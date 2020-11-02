@@ -41,5 +41,5 @@ to link to your Steams Phasmophobia directory
 
 
 # Credits
-**Fullbright:** *ShieldSupporterfor* sharing the code from *Plagues*  
-**2D Box ESP:** *EBro912*
+**Fullbright:** `ShieldSupporter` for sharing the code from `Plagues`  
+**2D Box ESP:** `EBro912`
