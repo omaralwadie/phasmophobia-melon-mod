@@ -6,6 +6,7 @@ Place the generated DLL into the MelonLoader Mods folder.
 
 **Features**  
 \- Simple Box ESP  
+\- Bone/OuijaBoard/FuseBox ESP  
 \- Fullbright Mode  
 \- Basic Ghost Informations (Ghost Name/Type/State, responds to)  
 \- Revealed Evidence  
@@ -28,6 +29,7 @@ Delete = Enable debug output
 \- [Mod v.2](Images/v2.png)  
 \- [Mod v.3](Images/v3.png)  
 \- [Mod v.4](Images/v4.png)
+\- [Mod v.4.2](Images/v4.2.png)
 
 
 # How to build

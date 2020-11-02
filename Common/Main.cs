@@ -192,6 +192,10 @@ namespace PhasmoMelonMod
             yield return new WaitForSeconds(0.15f);
             Debug.Out("dnaEvidences");
 
+            FuseBoxes = Object.FindObjectsOfType<FuseBox>().ToList<FuseBox>();
+            yield return new WaitForSeconds(0.15f);
+            Debug.Out("fuseBox");
+
             gameController = Object.FindObjectOfType<GameController>();
             yield return new WaitForSeconds(0.15f);
             Debug.Out("gameController");
@@ -255,6 +259,7 @@ namespace PhasmoMelonMod
         public static GameController gameController;
         public static GhostAI ghostAI;
         public static List<GhostAI> ghostAIs;
+        public static List<FuseBox> FuseBoxes;
         public static GhostController ghostController;
         public static GhostEventPlayer ghostEventPlayer;
         public static GhostInfo ghostInfo;

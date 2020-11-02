@@ -84,5 +84,9 @@
     <Compile Include="Utils\Debug.cs" />
     <Compile Include="Utils\Drawing.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
+    <None Include="README.md" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
