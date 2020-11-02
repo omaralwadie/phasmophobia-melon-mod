@@ -20,7 +20,7 @@ Down Arrow = Fullbright
 Left Arrow = Information Box  
 Right Arrow = Trolling UI  
 Insert = Cheat UI  
-Demete Key = Enable debug output
+Delete = Enable debug output
 
 
 **Screenshots**  
