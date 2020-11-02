@@ -19,7 +19,7 @@ namespace PhasmoMelonMod
                         Main.evidence = "Spirit Box | Fingerprints | Ghost Writing";
                         break;
                     case ValueTypePublicSealedObInBoStInBoInInInUnique.EnumNPublicSealedvanoSpWrPhPoBaJiMaReUnique.Shade:
-                        Main.evidence = "EMF 5 | Fingerprints | Ghost Writing";
+                        Main.evidence = "EMF 5 | Ghost Orb | Ghost Writing";
                         break;
                     case ValueTypePublicSealedObInBoStInBoInInInUnique.EnumNPublicSealedvanoSpWrPhPoBaJiMaReUnique.Poltergeist:
                         Main.evidence = "Spirit Box | Fingerprints | Ghost Orb";
