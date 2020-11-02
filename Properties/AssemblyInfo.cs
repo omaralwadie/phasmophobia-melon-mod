@@ -6,12 +6,12 @@ using MelonLoader;
 // Allgemeine Informationen über eine Assembly werden über die folgenden
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("PhasmoMelonMod")]
+[assembly: AssemblyTitle("PhasmoMelonMod v0.4.2020.1102")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("PhasmoMelonMod")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyCopyright("Copyright © Cr4nkSt4r 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,8 +33,8 @@ using MelonLoader;
 // Sie können alle Werte angeben oder Standardwerte für die Build- und Revisionsnummern verwenden,
 // indem Sie "*" wie unten gezeigt eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("0.4.2020.1102")]
+[assembly: AssemblyFileVersion("0.4.2020.1102")]
 
-[assembly: MelonInfo(typeof(PhasmoMelonMod.Main), "PhasmoMonoMod", "1.0.0.0", "Cr4nkSt4r")]
+[assembly: MelonInfo(typeof(PhasmoMelonMod.Main), "PhasmoMonoMod", "0.4.2020.1102", "Cr4nkSt4r")]
 [assembly: MelonGame("Kinetic Games", "Phasmophobia")]
