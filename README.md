@@ -28,3 +28,12 @@ Delete = Enable debug output
 \- [Mod v.2](Images/v2.png)  
 \- [Mod v.3](Images/v3.png)  
 \- [Mod v.4](Images/v4.png)
+
+
+# How to build
+1. [Install MelonLoader](https://melonwiki.xyz/#/README)
+2. Start the game without Mod, only with MelonLoader. ML will download stuff do handle the IL2CPP from Phasmophobia
+3. Modify `PhasmoMelonMod.csproj` and edit all  
+```<Reference Include="Assembly-CSharp"><HintPath>**.dll</HintPath></Reference>```  
+to link to your Steams Phasmophobia directory
+4. Compile (Release) and move the `obj\Release\PhasmoMelonMod.dll` to the Mod folder inside your Phasmophobia directory
