@@ -162,7 +162,15 @@ namespace PhasmoMelonMod
                 }
             }
         }
+        public static void Reset()
+        {
+            Main.ghostNameAge = "N/A";
+            Main.ghostType = "N/A";
+            Main.ghostIsShy = "N/A";
+            Main.evidence = "N/A";
+            firstRun = true;
+        }
 
-        private static bool firstRun = true;
+        public static bool firstRun = true;
     }
 }

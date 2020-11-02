@@ -7,7 +7,7 @@ namespace PhasmoMelonMod
     {
         public static void Out(String text)
         {
-            if (CheatToggles.enableDebug) { MelonLogger.Log("[*] " + text); }
+            if (CheatToggles.enableDebug) { MelonLogger.Log("[D] " + text); }
         }
     }
 }

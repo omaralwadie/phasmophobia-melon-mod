@@ -73,16 +73,16 @@ namespace PhasmoMelonMod
             {
                 CheatToggles.enableTrolling = !CheatToggles.enableTrolling;
                 MelonLogger.Log("[+] Trolling UI: Toggled " + (CheatToggles.enableTrolling ? "On" : "Off"));
-                //CheatToggles.enableCheating = false;
-                //MelonLogger.Log("[+] Cheating UI: Toggled " + (CheatToggles.enableCheating ? "On" : "Off"));
+                CheatToggles.enableCheating = false;
+                MelonLogger.Log("[+] Cheating UI: Toggled " + (CheatToggles.enableCheating ? "On" : "Off"));
             }
 
             if (keyboard.insertKey.wasPressedThisFrame)
             {
                 CheatToggles.enableCheating = !CheatToggles.enableCheating;
                 MelonLogger.Log("[+] Cheating UI: Toggled " + (CheatToggles.enableCheating ? "On" : "Off"));
-                //CheatToggles.enableTrolling = false;
-                //MelonLogger.Log("[+] Trolling UI: Toggled " + (CheatToggles.enableTrolling ? "On" : "Off"));
+                CheatToggles.enableTrolling = false;
+                MelonLogger.Log("[+] Trolling UI: Toggled " + (CheatToggles.enableTrolling ? "On" : "Off"));
             }
 
             if (keyboard.deleteKey.wasPressedThisFrame)
@@ -115,7 +115,7 @@ namespace PhasmoMelonMod
 
             if(CheatToggles.enableTrolling)
             {
-                if (1 == 1)
+                if (initializedScene > 1)
                 {
                     if (GUI.Button(new Rect(500f, 2f, 100f, 20f), "Hunt") && levelController != null)
                     {
@@ -142,7 +142,7 @@ namespace PhasmoMelonMod
 
             if (CheatToggles.enableCheating)
             {
-                if (1 == 1)
+                if (initializedScene == 1)
                 {
                     if (GUI.Button(new Rect(600f, 2f, 100f, 20f), "+ 1.000$") && levelController == null)
                     {
@@ -179,6 +179,7 @@ namespace PhasmoMelonMod
             CheatToggles.enableEsp = false;
             CheatToggles.enableFullbright = false;
             CheatToggles.enableTrolling = false;
+            BasicInformations.Reset();
         }
 
         IEnumerator CollectGameObjects()
