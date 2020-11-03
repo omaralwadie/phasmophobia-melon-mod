@@ -46,3 +46,7 @@ to link to your Steams Phasmophobia directory
 **Fullbright:** `ShieldSupporter` for sharing the code from `Plagues`  
 **2D Box ESP:** `EBro912`  
 **Others:** `HYPExMon5ter`
+
+
+# License
+**GNU General Public License 3**
