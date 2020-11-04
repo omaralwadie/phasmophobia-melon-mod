@@ -75,6 +75,21 @@ namespace PhasmoMelonMod
             {
                 CheatToggles.guiEnabled = !CheatToggles.guiEnabled;
                 MelonLogger.Log("[+] GUI: Toggled " + (CheatToggles.guiEnabled ? "On" : "Off"));
+
+                if(CheatToggles.guiEnabled)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    if (myPlayer != null)
+                        myPlayer.field_Public_FirstPersonController_0.enabled = false;
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    if (myPlayer != null)
+                        myPlayer.field_Public_FirstPersonController_0.enabled = true;
+                }
             }
 
             if (keyboard.deleteKey.wasPressedThisFrame)
@@ -134,9 +149,6 @@ namespace PhasmoMelonMod
 
             if(CheatToggles.guiEnabled)
             {
-                Cursor.lockState = CursorLockMode.Confined;
-                Cursor.visible = true;
-
                 if (initializedScene > 1)
                 {
                     if (GUI.Button(new Rect(500f, 2f, 150f, 20f), "Hunt") && levelController != null)
@@ -230,12 +242,6 @@ namespace PhasmoMelonMod
                         }
                     }
                 }
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Confined;
-                if (initializedScene > 1)
-                    Cursor.visible = false;
             }
         }
         public override void OnModSettingsApplied()
