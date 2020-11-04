@@ -1,4 +1,4 @@
-# Phasmophobia MelonLoader Mod (Outdated when beta branch goes live)
+# Phasmophobia MelonLoader Mod - Outdated
 
 Just an private project to learn some basic programming of Unity Engine Mods with the help of MelonLoader.  
 Place the generated DLL into the MelonLoader Mods folder.   
