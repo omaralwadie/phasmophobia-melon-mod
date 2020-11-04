@@ -175,22 +175,14 @@ namespace PhasmoMelonMod
                     {
                         Trolling.LockDoors(4);
                     }
-                    GUI.SetNextControlName("changeName");
-                    playerName = GUI.TextArea(new Rect(800f, 2f, 150f, 20f), playerName);
-                    if (GUI.Button(new Rect(800f, 22f, 150f, 20f), "Change Name"))
-                    {
-                        GUI.FocusControl("changeName");
-                        PhotonNetwork.NickName = playerName;
-                        MelonLogger.Log("[+] Set name: " + playerName);
-                    }
-                    if (GUI.Button(new Rect(800f, 42f, 150f, 20f), "Default Speed") && levelController != null)
+                    if (GUI.Button(new Rect(800f, 2f, 150f, 20f), "Default Speed") && levelController != null)
                     {
                         player.field_Public_FirstPersonController_0.m_WalkSpeed = 1.6f;
                         player.field_Public_FirstPersonController_0.m_RunSpeed = 2.6f;
                     }
                     GUI.SetNextControlName("changeSpeed");
-                    walkSpeedModifierString = GUI.TextArea(new Rect(800f, 62f, 150f, 20f), walkSpeedModifierString);
-                    if (GUI.Button(new Rect(800f, 82f, 150f, 20f), "Set Speed") && levelController != null)
+                    walkSpeedModifierString = GUI.TextArea(new Rect(800f, 22f, 150f, 20f), walkSpeedModifierString);
+                    if (GUI.Button(new Rect(800f, 42f, 150f, 20f), "Set Speed") && levelController != null)
                     {
                         GUI.FocusControl("changeSpeed");
                         walkSpeedModifierInt = Int32.Parse(walkSpeedModifierString);
@@ -227,6 +219,14 @@ namespace PhasmoMelonMod
                         if (GUI.Button(new Rect(500f, 62f, 150f, 20f), "- 1.000XP") && levelController == null)
                         {
                             FileBasedPrefs.SetInt("myTotalExp", FileBasedPrefs.GetInt("myTotalExp", 0) - 1000);
+                        }
+                        GUI.SetNextControlName("changeName");
+                        playerName = GUI.TextArea(new Rect(650f, 2f, 150f, 20f), playerName);
+                        if (GUI.Button(new Rect(650f, 22f, 150f, 20f), "Change Name"))
+                        {
+                            GUI.FocusControl("changeName");
+                            PhotonNetwork.NickName = playerName;
+                            MelonLogger.Log("[+] Set name: " + playerName);
                         }
                     }
                 }
