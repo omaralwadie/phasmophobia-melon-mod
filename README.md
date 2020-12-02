@@ -1,4 +1,4 @@
-# Phasmophobia MelonLoader Mod - Outdated
+# Phasmophobia MelonLoader Mod - Only works with an bypass
 
 Just an private project to learn some basic programming of Unity Engine Mods with the help of MelonLoader.  
 Place the generated DLL into the MelonLoader Mods folder.   
@@ -50,6 +50,8 @@ U = Unlock all exit doors
 ```<Reference Include="Assembly-CSharp"><HintPath>**.dll</HintPath></Reference>```  
 to link to your Steams Phasmophobia directory
 4. Compile (Release) and move the `obj\Release\PhasmoMelonMod.dll` to the Mod folder inside your Phasmophobia directory
+
+This mod only works with an MelonLoader Bypass or the game will crash because of MelonLoader detection.
 
 
 
