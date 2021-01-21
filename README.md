@@ -6,7 +6,8 @@ Place the generated DLL into the MelonLoader Mods folder.
 
 **Features**  
 \- Simple Box ESP  
-\- Bone/OuijaBoard/FuseBox ESP  
+\- Bone/OuijaBoard/FuseBox/EMF ESP  
+\- Player ESP  
 \- Fullbright mode  
 \- Basic ghost informations (Ghost Name/Type/State, responds to)  
 \- Revealed evidence  
@@ -15,32 +16,39 @@ Place the generated DLL into the MelonLoader Mods folder.
 \- Console window for logging (MelonLoader)  
 \- Ghost actions: Hunt/Idle/Appear/Disappear/Interact  
 \- Add/Remove XP/Money  
-\- Change speed multiplier  
-\- Close+Lock/Open+Unlock Exit/All doors  
-\- Change player name
+\- Close/Open all exit or room doors  
+\- Lock/Unlock all exit or room doors  
+\- Change player name  
+\- Troll hotkey toggle  
+\- Random light use  
+\- All lights On/Off  
+\- Blinking lights  
 
 
 **Hotkeys**  
-Up Arrow = ESP  
-Down Arrow = Fullbright  
-Left Arrow = Information box  
-Insert = Toggle GUI  
-Delete = Enable debug output  
-H = Force ghost to hunt  
-I = Force ghost to interact with Door/Book/Objects  
-O = Force ghost to appear  
-P = Force ghost to stop hunting / appearing  
-L = Lock all exit doors  
-U = Unlock all exit doors  
+Insert | Delete | Right Ctrl: Open GUI  
+↑ key: Toggle ESP  
+← key: Toggle basic informations  
+↓ key: Toggle fullbright  
+H key: Force ghost to hunt  
+I key: Force ghost to interact with Door/Book/Objects  
+O key: Force ghost to appear  
+P key: Force ghost to stop hunting / appearing  
+L key: Lock all exit doors  
+U key: Unlock all exit doors  
+
 
 **Screenshots**  
+\- [Mod v.7.2](Images/v7.2.png)  
+\- [Mod v.7.0](Images/v7.0_HAC-Edition.jpg)  
+\- [Mod v.6.1](Images/v6.1.png)  
 \- [Mod v.5](Images/v5.png)  
 \- [Mod v.4.3](Images/v4.3.png)  
 \- [Mod v.4.2](Images/v4.2.png)  
 \- [Mod v.4](Images/v4.png)  
 \- [Mod v.3](Images/v3.png)  
 \- [Mod v.2](Images/v2.png)  
-\- [Mod v.1](Images/v1.png)
+\- [Mod v.1](Images/v1.png)  
 
 
 # How to build
