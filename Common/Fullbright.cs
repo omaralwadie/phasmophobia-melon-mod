@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using MelonLoader;
 
 namespace PhasmoMelonMod
 {
@@ -6,8 +7,10 @@ namespace PhasmoMelonMod
     {
         public static void Enable()
         {
-            if (Main.boneTransform != null)
+            if (Main.boneTransform != null && Main.initializedScene > 1 && isAlreadyOn == false)
             {
+                isAlreadyOn = true;
+                Main.light = Main.boneTransform.GetComponent<Light>();
                 Main.light = Main.boneTransform.gameObject.AddComponent<Light>();
                 Main.light.color = Color.white;
                 Main.light.type = LightType.Spot;
@@ -16,15 +19,22 @@ namespace PhasmoMelonMod
                 Main.light.spotAngle = 9999f;
                 Main.light.intensity = 0.3f;
             }
-            else
+            else if (isAlreadyOn == false)
             {
                 CheatToggles.enableFullbright = !CheatToggles.enableFullbright;
+                MelonLogger.Log("[+] No boneTransform! Fullbright: Toggled " + (CheatToggles.enableFullbright ? "On" : "Off"));
             }
         }
 
         public static void Disable()
         {
-            Object.Destroy(Main.light);
+            if (Main.boneTransform.gameObject.GetComponent<Light>())
+            {
+                Object.Destroy(Main.light);
+                isAlreadyOn = false;
+            }
         }
+
+        private static bool isAlreadyOn = false;
     }
 }

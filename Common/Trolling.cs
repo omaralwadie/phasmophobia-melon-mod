@@ -13,6 +13,7 @@ namespace PhasmoMelonMod
         public static void Hunt()
         {
             MelonLogger.Log("[+] Troll->Hunt: Triggered ");
+            CloseAllExitDoors();
             Main.ghostAI.field_Public_Boolean_0 = true;
             Main.ghostAI.field_Public_Boolean_1 = true;
             Main.ghostAI.field_Public_Boolean_2 = true;
@@ -20,8 +21,6 @@ namespace PhasmoMelonMod
             Main.ghostAI.field_Public_Boolean_4 = true;
             Main.ghostAI.field_Public_Boolean_5 = true;
             Main.ghostAI.field_Public_Player_0 = null;
-            //field_Public_Player_1  //Testing
-            //field_Public_Boolean_6  //Testing
             Main.ghostAI.ChasingPlayer(true);
             Main.ghostAI.field_Public_Animator_0.SetBool("isIdle", false);
             Main.ghostAI.field_Public_Animator_0.SetInteger("WalkType", 1);
@@ -29,7 +28,6 @@ namespace PhasmoMelonMod
             Main.ghostAI.field_Public_GhostAudio_0.PlayOrStopAppearSource(true);
             Main.ghostAI.field_Public_NavMeshAgent_0.speed = Main.ghostAI.field_Public_Single_0;
             Main.ghostAI.field_Public_NavMeshAgent_0.SetDestination(getDestination());
-            SetupPhaseController.field_Public_Static_SetupPhaseController_0.ForceEnterHuntingPhase();
             Main.ghostAI.ChangeState(GhostAI.EnumNPublicSealedvaidwahufalidothfuapUnique.hunting, null, null);
             Main.ghostAI.field_Public_GhostInteraction_0.CreateAppearedEMF(Main.ghostAI.transform.position);
             Main.ghostAI.Appear(true);
@@ -59,32 +57,34 @@ namespace PhasmoMelonMod
             PhotonView photonView = Main.ghostAI.field_Public_PhotonView_0;
             photonView.RPC("Hunting", RpcTarget.All, getRPCObject(1, false));
             photonView.RPC("SyncChasingPlayer", RpcTarget.All, getRPCObject(1, false));
+            OpenAllExitDoors();
         }
 
         public static void Appear()
         {
             MelonLogger.Log("[+] Troll->Appear: Triggered ");
             PhotonView photonView = Main.ghostAI.field_Public_PhotonView_0;
-            photonView.RPC("MakeGhostAppear", RpcTarget.All, getRPCObject(2, true, 0, 3));
+            photonView.RPC("MakeGhostAppear", RpcTarget.All, getRPCObject(2, true, 0, 1));
         }
 
         public static void UnAppear()
         {
             MelonLogger.Log("[+] Troll->UnAppear: Triggered ");
             PhotonView photonView = Main.ghostAI.field_Public_PhotonView_0;
-            photonView.RPC("MakeGhostAppear", RpcTarget.All, getRPCObject(2, false, 0, 3));
+            photonView.RPC("MakeGhostAppear", RpcTarget.All, getRPCObject(2, false, 0, 1));
         }
         public static void Interact()
         {
             MelonLogger.Log("[+] Troll->Interact: Triggered ");
+            Main.ghostAI.RandomEvent();
             Main.ghostActivity.Interact();
+            Main.ghostAI.field_Public_GhostActivity_0.InteractWithARandomDoor();
+            Main.ghostAI.field_Public_GhostActivity_0.InteractWithARandomProp();
+            Main.ghostAI.field_Public_GhostActivity_0.Interact();
         }
 
         public static void LockDoors(int lockState, int howMany = 0)
         {
-            //Door::field_Public_Boolean_0 = locked
-            //Door::field_Public_Boolean_1 = closed
-            //Door::field_Public_Boolean_2 = canBeGrabbed
             switch (lockState)
             {
                 case 1:
@@ -167,7 +167,14 @@ namespace PhasmoMelonMod
             door.UnlockDoor();
             photonView.RPC("SyncLockState", RpcTarget.All, getRPCObject(1, false));
         }
+        public static void EventDoorKnock()
+        {
+            MelonLogger.Log("[+] Troll->Event: Door knock ");
+            PhotonView photonView1 = Main.soundController.field_Public_PhotonView_0;
+            photonView1.RPC("PlayDoorKnockingSound", RpcTarget.All, getRPCObject(0, false));
+            Main.photonView.RPC("PlayKnockingSoundSynced", RpcTarget.All, getRPCObject(0, false, 0, 0, false, true, Main.doors[Random.Range(0, Main.doors.Count)].transform.position));
 
+        }
 
         private static Vector3 getDestination()
         {
@@ -187,7 +194,7 @@ namespace PhasmoMelonMod
             return destination;
         }
 
-        private static Object[] getRPCObject(int i, bool isTrue = true, int rangeMin = 0, int rangeMax = 0, bool rangeFirst = false)
+        public static Object[] getRPCObject(int i, bool isTrue = true, int rangeMin = 0, int rangeMax = 0, bool rangeFirst = false, bool isPosition = false, Vector3 pos = new Vector3())
         {
             Debug.Out("getRPCObject");
             Object[] obj = new Object[i];
@@ -216,35 +223,30 @@ namespace PhasmoMelonMod
                     obj[0] = integer.BoxIl2CppObject();
                 }
             }
+            if (isPosition)
+            {
+                Vector3 vector = default(Vector3);
+                vector = pos;
+                obj[0] = vector.BoxIl2CppObject();
+            }
 
             return obj;
         }
+        public static Object[] getRPCObjectEmf(int i, Vector3 pos, int type = 0)
+        {
+            Debug.Out("getRPCObjectEmf");
+            Object[] obj = new Object[i];
+            if (i > 0)
+            {
+                Vector3 vector = default(Vector3);
+                Int32 integer = default(Int32);
+                vector = pos;
+                integer.m_value = type;
 
-        //this.view.RPC("Hunting", PhotonTargets.All, new object[]
-        //{
-        //    false
-        //});
-        //this.view.RPC("SyncChasingPlayer", PhotonTargets.All, new object[]
-        //{
-        //    isChasing
-        //});
-        //this.view.RPC("MakeGhostAppear", PhotonTargets.All, new object[]
-        //{
-        //    true,
-        //    Random.Range(0, isEvent ? 2 : 3)
-        //});
-        //this.view.RPC("UseNetworked", PhotonTargets.AllBuffered, new object[]
-        //{
-        //    false
-        //});
-        //this.view.RPC("SyncLockState", PhotonTargets.AllBuffered, new object[]
-        //{
-        //    this.locked
-        //});
-        //this.view.RPC("UnlockDoorTimer", PhotonTargets.AllBuffered, new object[]
-        //{
-        //    UnityEngine.Random.Range(5f, 20f)
-        //});
-        //this.view.RPC("NetworkedPlayLockSound", PhotonTargets.All, Array.Empty<object>());
+                obj[0] = vector.BoxIl2CppObject();
+                obj[1] = integer.BoxIl2CppObject();
+            }
+            return obj;
+        }
     }
 }
