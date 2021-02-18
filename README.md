@@ -1,4 +1,5 @@
-﻿# Phasmophobia MelonLoader Mod: Alpha - Only works with MelonLoader v0.3.0.0 or greater and a bypass 
+﻿# Phasmophobia MelonLoader Mod - Alpha  
+Only works with MelonLoader v0.3.0.0 or greater and a bypass 
 
 Just a private project to learn some basic programming of Unity Engine Mods with the help of MelonLoader.  
 Place the generated DLL into the MelonLoader Mods folder.   
