@@ -1,7 +1,6 @@
-﻿using MelonLoader;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace PhasmoMelonMod
+namespace C4PhasMod
 {
     class ESP
     {
@@ -86,8 +85,6 @@ namespace PhasmoMelonMod
                             vector.y = Screen.height - (vector.y + 1f);
                             GUI.color = new Color32(210, 31, 255, 255);
                             string spotName = "";
-
-                            Debug.Out("[D] EMF: " + emf.field_Public_EnumNPublicSealedvaGh5vGhGhGhUnique_0.ToString());
 
                             switch ((int)emf.field_Public_EnumNPublicSealedvaGh5vGhGhGhUnique_0)
                             {

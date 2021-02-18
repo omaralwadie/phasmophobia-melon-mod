@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
 
-namespace PhasmoMelonMod
+namespace C4PhasMod
 {
     class Drawing
     {

@@ -1,4 +1,4 @@
-﻿namespace PhasmoMelonMod
+﻿namespace C4PhasMod
 {
     public class CheatToggles
     {
