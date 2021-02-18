@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace PhasmoMelonMod
+namespace C4PhasMod
 {
     class BasicInformations
     {
@@ -159,7 +159,7 @@ namespace PhasmoMelonMod
 
         public static void EnablePlayer()
         {
-            if (Main.initializedScene > 1 && CheatToggles.enableBIPlayer || CheatToggles.enableBI)
+            if (Main.initializedScene > 1 && (CheatToggles.enableBIPlayer || CheatToggles.enableBI) && Main.myPlayer.field_Public_Single_0 > -1)
             {
                 Main.myPlayerSanity = Math.Round(100 - Main.myPlayer.field_Public_Single_0, 0).ToString();
             }

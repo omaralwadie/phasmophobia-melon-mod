@@ -1,39 +1,13 @@
 ﻿using System.Reflection;
-using System.Runtime.InteropServices;
 using MelonLoader;
 
-// Allgemeine Informationen über eine Assembly werden über die folgenden
-// Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
-// die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("PhasmoMelonMod v0.7.4.0")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("PhasmoMelonMod")]
-[assembly: AssemblyCopyright("Copyright © Cr4nkSt4r 2020")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-
-// Durch Festlegen von ComVisible auf FALSE werden die Typen in dieser Assembly
-// für COM-Komponenten unsichtbar.  Wenn Sie auf einen Typ in dieser Assembly von
-// COM aus zugreifen müssen, sollten Sie das ComVisible-Attribut für diesen Typ auf "True" festlegen.
-[assembly: ComVisible(false)]
-
-// Die folgende GUID bestimmt die ID der Typbibliothek, wenn dieses Projekt für COM verfügbar gemacht wird
-[assembly: Guid("7247a362-12c4-472d-a3cd-3e04dfc07959")]
-
-// Versionsinformationen für eine Assembly bestehen aus den folgenden vier Werten:
-//
-//      Hauptversion
-//      Nebenversion
-//      Buildnummer
-//      Revision
-//
-// Sie können alle Werte angeben oder Standardwerte für die Build- und Revisionsnummern verwenden,
-// indem Sie "*" wie unten gezeigt eingeben:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.7.4.0")]
-[assembly: AssemblyFileVersion("0.7.4.0")]
-
-[assembly: MelonInfo(typeof(PhasmoMelonMod.Main), "PhasmoMelonMod", "0.7.4.0", "Cr4nkSt4r")]
+[assembly: AssemblyTitle(C4PhasMod.BuildInfo.Name)]
+[assembly: AssemblyDescription(C4PhasMod.BuildInfo.Description)]
+[assembly: AssemblyCompany(C4PhasMod.BuildInfo.Company)]
+[assembly: AssemblyProduct(C4PhasMod.BuildInfo.Name)]
+[assembly: AssemblyCopyright("Copyright © " + C4PhasMod.BuildInfo.Author + " 2021")]
+[assembly: AssemblyTrademark(C4PhasMod.BuildInfo.Company)]
+[assembly: AssemblyVersion(C4PhasMod.BuildInfo.Version)]
+[assembly: AssemblyFileVersion(C4PhasMod.BuildInfo.Version)]
+[assembly: MelonInfo(typeof(C4PhasMod.Main), C4PhasMod.BuildInfo.Name, C4PhasMod.BuildInfo.Version, C4PhasMod.BuildInfo.Author, C4PhasMod.BuildInfo.DownloadLink)]
 [assembly: MelonGame("Kinetic Games", "Phasmophobia")]

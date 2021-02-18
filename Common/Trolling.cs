@@ -6,13 +6,13 @@ using Object = Il2CppSystem.Object;
 using Boolean = Il2CppSystem.Boolean;
 using Int32 = Il2CppSystem.Int32;
 
-namespace PhasmoMelonMod
+namespace C4PhasMod
 {
     class Trolling
     {
         public static void Hunt()
         {
-            MelonLogger.Log("[+] Troll->Hunt: Triggered ");
+            Debug.Msg("Troll->Hunt: Triggered", 1);
             CloseAllExitDoors();
             Main.ghostAI.field_Public_Boolean_0 = true;
             Main.ghostAI.field_Public_Boolean_1 = true;
@@ -38,13 +38,7 @@ namespace PhasmoMelonMod
 
         public static void Idle()
         {
-            MelonLogger.Log("[+] Troll->Idle: Triggered ");
-            Main.ghostAI.field_Public_Boolean_0 = false;
-            Main.ghostAI.field_Public_Boolean_1 = false;
-            Main.ghostAI.field_Public_Boolean_2 = false;
-            Main.ghostAI.field_Public_Boolean_3 = false;
-            Main.ghostAI.field_Public_Boolean_4 = false;
-            Main.ghostAI.field_Public_Boolean_5 = false;
+            Debug.Msg("Troll->Idle: Triggered", 1);
             Main.ghostAI.field_Public_Player_0 = null;
             Main.ghostAI.field_Public_Animator_0.SetInteger("IdleNumber", Random.Range(0, 2));
             Main.ghostAI.field_Public_Animator_0.SetBool("isIdle", true);
@@ -62,20 +56,20 @@ namespace PhasmoMelonMod
 
         public static void Appear()
         {
-            MelonLogger.Log("[+] Troll->Appear: Triggered ");
+            Debug.Msg("Troll->Appear: Triggered", 1);
             PhotonView photonView = Main.ghostAI.field_Public_PhotonView_0;
             photonView.RPC("MakeGhostAppear", RpcTarget.All, getRPCObject(2, true, 0, 1));
         }
 
         public static void UnAppear()
         {
-            MelonLogger.Log("[+] Troll->UnAppear: Triggered ");
+            Debug.Msg("Troll->UnAppear: Triggered", 1);
             PhotonView photonView = Main.ghostAI.field_Public_PhotonView_0;
             photonView.RPC("MakeGhostAppear", RpcTarget.All, getRPCObject(2, false, 0, 1));
         }
         public static void Interact()
         {
-            MelonLogger.Log("[+] Troll->Interact: Triggered ");
+            Debug.Msg("Troll->Interact: Triggered", 1);
             Main.ghostAI.RandomEvent();
             Main.ghostActivity.Interact();
             Main.ghostAI.field_Public_GhostActivity_0.InteractWithARandomDoor();
@@ -89,19 +83,19 @@ namespace PhasmoMelonMod
             {
                 case 1:
                     CloseAllExitDoors();
-                    MelonLogger.Log("[+] Troll->CloseAllExitDoors");
+                    Debug.Msg("Troll->CloseAllExitDoors", 1);
                     break;
                 case 2:
                     CloseAllRoomDoors();
-                    MelonLogger.Log("[+] Troll->CloseAllRoomDoors");
+                    Debug.Msg("Troll->CloseAllRoomDoors", 1);
                     break;
                 case 3:
                     OpenAllExitDoors();
-                    MelonLogger.Log("[+] Troll->OpenAllExitDoors");
+                    Debug.Msg("Troll->OpenAllExitDoors", 1);
                     break;
                 case 4:
                     OpenAllRoomDoors();
-                    MelonLogger.Log("[+] Troll->OpenAllRoomDoors");
+                    Debug.Msg("Troll->OpenAllRoomDoors", 1);
                     break;
                 default:
                     break;
@@ -110,7 +104,7 @@ namespace PhasmoMelonMod
 
         public static void FuseBox()
         {
-            MelonLogger.Log("[+] Troll->FuseBox: Triggered ");
+            Debug.Msg("Troll->FuseBox: Triggered", 1);
             PhotonView photonView = Main.fuseBox.view;
             photonView.RPC("UseNetworked", RpcTarget.All, getRPCObject(1, false));
         }
@@ -169,7 +163,7 @@ namespace PhasmoMelonMod
         }
         public static void EventDoorKnock()
         {
-            MelonLogger.Log("[+] Troll->Event: Door knock ");
+            Debug.Msg("Troll->Event: Door knock", 1);
             PhotonView photonView1 = Main.soundController.field_Public_PhotonView_0;
             photonView1.RPC("PlayDoorKnockingSound", RpcTarget.All, getRPCObject(0, false));
             Main.photonView.RPC("PlayKnockingSoundSynced", RpcTarget.All, getRPCObject(0, false, 0, 0, false, true, Main.doors[Random.Range(0, Main.doors.Count)].transform.position));
@@ -178,7 +172,7 @@ namespace PhasmoMelonMod
 
         private static Vector3 getDestination()
         {
-            Debug.Out("getDestination");
+            Debug.Msg("getDestination", 3);
             Vector3 destination = Vector3.zero;
             float num = Random.Range(2f, 15f);
             NavMeshHit navMeshHit;
@@ -196,7 +190,7 @@ namespace PhasmoMelonMod
 
         public static Object[] getRPCObject(int i, bool isTrue = true, int rangeMin = 0, int rangeMax = 0, bool rangeFirst = false, bool isPosition = false, Vector3 pos = new Vector3())
         {
-            Debug.Out("getRPCObject");
+            Debug.Msg("getRPCObject", 3);
             Object[] obj = new Object[i];
             if (i > 0)
             {
@@ -234,7 +228,7 @@ namespace PhasmoMelonMod
         }
         public static Object[] getRPCObjectEmf(int i, Vector3 pos, int type = 0)
         {
-            Debug.Out("getRPCObjectEmf");
+            Debug.Msg("getRPCObjectEmf", 3);
             Object[] obj = new Object[i];
             if (i > 0)
             {

@@ -1,13 +1,13 @@
-# Phasmophobia MelonLoader Mod - Only works with an bypass
+﻿# Phasmophobia MelonLoader Mod  
+Only works with a bypass 
 
-Just an private project to learn some basic programming of Unity Engine Mods with the help of MelonLoader.  
+Just a private project to learn some basic programming of Unity Engine Mods with the help of MelonLoader.  
 Place the generated DLL into the MelonLoader Mods folder.   
 
 
 **Features**  
 \- Simple Box ESP  
 \- Bone/OuijaBoard/FuseBox/EMF ESP  
-\- Player ESP  
 \- Fullbright mode  
 \- Basic ghost informations (Ghost Name/Type/State, responds to)  
 \- Revealed evidence  
@@ -15,21 +15,17 @@ Place the generated DLL into the MelonLoader Mods folder.
 \- Show active and completed missions  
 \- Console window for logging (MelonLoader)  
 \- Ghost actions: Hunt/Idle/Appear/Disappear/Interact  
-\- Add/Remove XP/Money  
-\- Close/Open all exit or room doors  
-\- Lock/Unlock all exit or room doors  
-\- Change player name  
-\- Troll hotkey toggle  
-\- Random light use  
-\- All lights On/Off  
-\- Blinking lights  
+\- Blinking and turn on/off lights
+\- Add/Remove XP/Money   
+\- Close+Lock/Open+Unlock Exit/All doors  
+\- Change player name
 
 
 **Hotkeys**  
 Insert | Delete | Right Ctrl: Open GUI  
-↑ key: Toggle ESP  
-← key: Toggle basic informations  
-↓ key: Toggle fullbright  
+UP key: Toggle ESP  
+LEFT key: Toggle basic informations  
+DOWN key: Toggle fullbright  
 H key: Force ghost to hunt  
 I key: Force ghost to interact with Door/Book/Objects  
 O key: Force ghost to appear  
@@ -48,7 +44,7 @@ U key: Unlock all exit doors
 \- [Mod v.4](Images/v4.png)  
 \- [Mod v.3](Images/v3.png)  
 \- [Mod v.2](Images/v2.png)  
-\- [Mod v.1](Images/v1.png)  
+\- [Mod v.1](Images/v1.png)
 
 
 # How to build

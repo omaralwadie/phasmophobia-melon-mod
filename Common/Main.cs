@@ -10,39 +10,54 @@ using Console = System.Console;
 using Object = UnityEngine.Object;
 using String = System.String;
 
-namespace PhasmoMelonMod
+namespace C4PhasMod
 {
     public class Main : MelonMod
     {
         public override void OnApplicationStart()
         {
             BasicInject.Main();
+            Debug.Msg("Set console title to: Phasmophobia", 1);
             Console.Title = string.Format("Phasmophobia");
-            MelonLogger.Log("[+] Set console title to: Phasmophobia");
+
+            HandleConfig();
         }
-        public override void OnLevelWasLoaded(int level)
+
+        public override void OnLevelWasLoaded(int index)
         {
-            if(gameStarted && initializedScene == 1)
-                DisableAll();
-            if(initializedScene == 1)
+            if (initializedScene == 1)
                 gameStarted = true;
         }
-        public override void OnLevelWasInitialized(int level)
+
+        public override void OnLevelWasInitialized(int index)
         {
-            if (level == 1 && canRun)
+            initializedScene = index;
+            if (initializedScene > 1 && canRun)
             {
                 canRun = false;
+                coRoutine = null;
+                isRunning = false;
                 new Thread(() =>
                 {
-                    while (isRunning)
+                    while (true)
                     {
-                        coRoutine = MelonCoroutines.Start(CollectGameObjects());
+                        if(!isRunning)
+                        {
+                            coRoutine = MelonCoroutines.Start(CollectGameObjects());
+                        }
                         Thread.Sleep(5000);
                     }
                 }).Start();
             }
-            initializedScene = level;
-            MelonLogger.Log("[+] Initialized Scene: " + mapNames[initializedScene]);
+            Debug.Msg("Initialized Scene: " + mapNames[initializedScene], 1);
+            if (gameStarted && initializedScene == 1)
+                DisableAll();
+
+            if (initializedScene == 1 && !canRun)
+            {
+                MelonCoroutines.Stop(coRoutine);
+                canRun = true;
+            }
         }
         public override void OnUpdate()
         {
@@ -51,7 +66,7 @@ namespace PhasmoMelonMod
             if (keyboard.leftArrowKey.wasPressedThisFrame)
             {
                 CheatToggles.enableBI = !CheatToggles.enableBI;
-                if(CheatToggles.enableBI)
+                if (CheatToggles.enableBI)
                 {
                     CheatToggles.enableBIGhost = true;
                     CheatToggles.enableBIMissions = true;
@@ -63,8 +78,10 @@ namespace PhasmoMelonMod
                     CheatToggles.enableBIMissions = false;
                     CheatToggles.enableBIPlayer = false;
                 }
-                MelonLogger.Log("[+] Basic informations: Toggled " + (CheatToggles.enableBI ? "On" : "Off"));
+                Debug.Msg("Basic informations: Toggled " + (CheatToggles.enableBI ? "On" : "Off"), 1);
             }
+
+
 
             if (keyboard.upArrowKey.wasPressedThisFrame)
             {
@@ -91,13 +108,13 @@ namespace PhasmoMelonMod
                     CheatToggles.enableEspEmf = false;
                     CheatToggles.enableEspFuseBox = false;
                 }
-                MelonLogger.Log("[+] ESP: Toggled " + (CheatToggles.enableEsp ? "On" : "Off"));
+                Debug.Msg("ESP: Toggled " + (CheatToggles.enableEsp ? "On" : "Off"), 1);
             }
 
             if (keyboard.downArrowKey.wasPressedThisFrame)
             {
                 CheatToggles.enableFullbright = !CheatToggles.enableFullbright;
-                MelonLogger.Log("[+] Fullbright: Toggled " + (CheatToggles.enableFullbright ? "On" : "Off"));
+                Debug.Msg("Fullbright: Toggled " + (CheatToggles.enableFullbright ? "On" : "Off"), 1);
                 if (CheatToggles.enableFullbright == true)
                 {
                     Fullbright.Enable();
@@ -108,10 +125,10 @@ namespace PhasmoMelonMod
                 }
             }
 
-            if (keyboard.insertKey.wasPressedThisFrame || keyboard.deleteKey.wasPressedThisFrame || keyboard.rightCtrlKey.wasPressedThisFrame)
+            if (keyboard.insertKey.wasPressedThisFrame || keyboard.deleteKey.wasPressedThisFrame || keyboard.rightCtrlKey.wasPressedThisFrame || keyboard.rightArrowKey.wasPressedThisFrame)
             {
                 CheatToggles.guiEnabled = !CheatToggles.guiEnabled;
-                MelonLogger.Log("[+] GUI: Toggled " + (CheatToggles.guiEnabled ? "On" : "Off"));
+                Debug.Msg("GUI: Toggled " + (CheatToggles.guiEnabled ? "On" : "Off"), 1);
 
                 if (CheatToggles.guiEnabled)
                 {
@@ -179,7 +196,7 @@ namespace PhasmoMelonMod
                         if (GUI.Toggle(new Rect(650f, 2f, 150f, 20f), CheatToggles.enableEspGhost, "Ghost ESP") != CheatToggles.enableEspGhost)
                         {
                             CheatToggles.enableEspGhost = !CheatToggles.enableEspGhost;
-                            MelonLogger.Log("[+] ESP: Toggled " + (CheatToggles.enableEspGhost ? "On" : "Off"));
+                            Debug.Msg("ESP: Toggled " + (CheatToggles.enableEspGhost ? "On" : "Off"), 1);
 
                         }
                         if (GUI.Toggle(new Rect(650f, 22f, 150f, 20f), CheatToggles.guiGhostTroll, "Troll Options") != CheatToggles.guiGhostTroll)
@@ -227,36 +244,36 @@ namespace PhasmoMelonMod
                         if (GUI.Toggle(new Rect(650f, 2f, 150f, 20f), CheatToggles.enableEspGhost, "Ghost ESP") != CheatToggles.enableEspGhost)
                         {
                             CheatToggles.enableEspGhost = !CheatToggles.enableEspGhost;
-                            MelonLogger.Log("[+] Ghost ESP: Toggled " + (CheatToggles.enableEspGhost ? "On" : "Off"));
+                            Debug.Msg("Ghost ESP: Toggled " + (CheatToggles.enableEspGhost ? "On" : "Off"), 1);
 
                         }
                         if (GUI.Toggle(new Rect(650f, 22f, 150f, 20f), CheatToggles.enableEspPlayer, "Player ESP") != CheatToggles.enableEspPlayer)
                         {
                             CheatToggles.enableEspPlayer = !CheatToggles.enableEspPlayer;
-                            MelonLogger.Log("[+] Player ESP: Toggled " + (CheatToggles.enableEspPlayer ? "On" : "Off"));
+                            Debug.Msg("Player ESP: Toggled " + (CheatToggles.enableEspPlayer ? "On" : "Off"), 1);
 
                         }
                         if (GUI.Toggle(new Rect(650f, 42f, 150f, 20f), CheatToggles.enableEspBone, "Bone ESP") != CheatToggles.enableEspBone)
                         {
                             CheatToggles.enableEspBone = !CheatToggles.enableEspBone;
-                            MelonLogger.Log("[+] Bone ESP: Toggled " + (CheatToggles.enableEspBone ? "On" : "Off"));
+                            Debug.Msg("Bone ESP: Toggled " + (CheatToggles.enableEspBone ? "On" : "Off"), 1);
 
                         }
                         if (GUI.Toggle(new Rect(650f, 62f, 150f, 20f), CheatToggles.enableEspOuija, "Ouija ESP") != CheatToggles.enableEspOuija)
                         {
                             CheatToggles.enableEspOuija = !CheatToggles.enableEspOuija;
-                            MelonLogger.Log("[+] Ouija ESP: Toggled " + (CheatToggles.enableEspOuija ? "On" : "Off"));
+                            Debug.Msg("Ouija ESP: Toggled " + (CheatToggles.enableEspOuija ? "On" : "Off"), 1);
 
                         }
                         if (GUI.Toggle(new Rect(650f, 82f, 150f, 20f), CheatToggles.enableEspFuseBox, "FuseBox ESP") != CheatToggles.enableEspFuseBox)
                         {
                             CheatToggles.enableEspFuseBox = !CheatToggles.enableEspFuseBox;
-                            MelonLogger.Log("[+] FuseBox ESP: Toggled " + (CheatToggles.enableEspFuseBox ? "On" : "Off"));
+                            Debug.Msg("FuseBox ESP: Toggled " + (CheatToggles.enableEspFuseBox ? "On" : "Off"), 1);
                         }
                         if (GUI.Toggle(new Rect(650f, 102f, 150f, 20f), CheatToggles.enableEspEmf, "Emf ESP") != CheatToggles.enableEspEmf)
                         {
                             CheatToggles.enableEspEmf = !CheatToggles.enableEspEmf;
-                            MelonLogger.Log("[+] Emf ESP: Toggled " + (CheatToggles.enableEspEmf ? "On" : "Off"));
+                            Debug.Msg("Emf ESP: Toggled " + (CheatToggles.enableEspEmf ? "On" : "Off"), 1);
                         }
                     }
                     if (GUI.Toggle(new Rect(500f, 42f, 150f, 20f), CheatToggles.guiHelper, "Helper GUI") != CheatToggles.guiHelper)
@@ -282,23 +299,23 @@ namespace PhasmoMelonMod
                             if (GUI.Toggle(new Rect(800f, 2f, 150f, 20f), CheatToggles.enableBIGhost, "Ghost Info") != CheatToggles.enableBIGhost)
                             {
                                 CheatToggles.enableBIGhost = !CheatToggles.enableBIGhost;
-                                MelonLogger.Log("[+] Ghost Info: Toggled " + (CheatToggles.enableBIGhost ? "On" : "Off"));
+                                Debug.Msg("Ghost Info: Toggled " + (CheatToggles.enableBIGhost ? "On" : "Off"), 1);
                             }
                             if (GUI.Toggle(new Rect(800f, 22f, 150f, 20f), CheatToggles.enableBIMissions, "Missions Info") != CheatToggles.enableBIMissions)
                             {
                                 CheatToggles.enableBIMissions = !CheatToggles.enableBIMissions;
-                                MelonLogger.Log("[+] Missions Info: Toggled " + (CheatToggles.enableBIMissions ? "On" : "Off"));
+                                Debug.Msg("Missions Info: Toggled " + (CheatToggles.enableBIMissions ? "On" : "Off"), 1);
                             }
                             if (GUI.Toggle(new Rect(800f, 42f, 150f, 20f), CheatToggles.enableBIPlayer, "Player Info") != CheatToggles.enableBIPlayer)
                             {
                                 CheatToggles.enableBIPlayer = !CheatToggles.enableBIPlayer;
-                                MelonLogger.Log("[+] Player Info: Toggled " + (CheatToggles.enableBIPlayer ? "On" : "Off"));
+                                Debug.Msg("Player Info: Toggled " + (CheatToggles.enableBIPlayer ? "On" : "Off"), 1);
                             }
                         }
                         if (GUI.Toggle(new Rect(650f, 22f, 150f, 20f), CheatToggles.enableFullbright, "Enable Fullbright") != CheatToggles.enableFullbright)
                         {
                             CheatToggles.enableFullbright = !CheatToggles.enableFullbright;
-                            MelonLogger.Log("[+] Fullbright: Toggled " + (CheatToggles.enableFullbright ? "On" : "Off"));
+                            Debug.Msg("Fullbright: Toggled " + (CheatToggles.enableFullbright ? "On" : "Off"), 1);
                             if (CheatToggles.enableFullbright)
                             {
                                 Fullbright.Enable();
@@ -311,7 +328,8 @@ namespace PhasmoMelonMod
                         if (GUI.Toggle(new Rect(650f, 42f, 150f, 20f), CheatToggles.enableHotkeys, "Enable Troll Hotkeys") != CheatToggles.enableHotkeys)
                         {
                             CheatToggles.enableHotkeys = !CheatToggles.enableHotkeys;
-                            MelonLogger.Log("[+] Troll Hotkeys: Toggled " + (CheatToggles.enableHotkeys ? "On" : "Off"));
+                            Debug.Msg("Troll Hotkeys: Toggled " + (CheatToggles.enableHotkeys ? "On" : "Off"), 1);
+                            MelonPrefs.SetBool("Settings", "HotkeysEnabled", CheatToggles.enableHotkeys);
                         }
                     }
                     if (GUI.Toggle(new Rect(500f, 62f, 150f, 20f), CheatToggles.guiTroll, "Troll GUI") != CheatToggles.guiTroll)
@@ -370,7 +388,22 @@ namespace PhasmoMelonMod
                         if (GUI.Toggle(new Rect(650f, 2f, 150f, 20f), CheatToggles.enableDebug, "Enable Debug") != CheatToggles.enableDebug)
                         {
                             CheatToggles.enableDebug = !CheatToggles.enableDebug;
-                            MelonLogger.Log("[+] Debug: Toggled " + (CheatToggles.enableDebug ? "On" : "Off"));
+                            Debug.Msg("Debug: Toggled " + (CheatToggles.enableDebug ? "On" : "Off"), 1);
+                        }
+                        if (GUI.Toggle(new Rect(650f, 22f, 150f, 20f), Debug.debugMode1, "Debug Mode 1") != Debug.debugMode1)
+                        {
+                            Debug.debugMode1 = !Debug.debugMode1;
+                            Debug.Msg("Debug Mode 1: Toggled " + (Debug.debugMode1 ? "On" : "Off"), 1);
+                        }
+                        if (GUI.Toggle(new Rect(650f, 42f, 150f, 20f), Debug.debugMode2, "Debug Mode 2") != Debug.debugMode2)
+                        {
+                            Debug.debugMode2 = !Debug.debugMode2;
+                            Debug.Msg("Debug Mode 2: Toggled " + (Debug.debugMode2 ? "On" : "Off"), 1);
+                        }
+                        if (GUI.Toggle(new Rect(650f, 62f, 150f, 20f), Debug.debugMode3, "Debug Mode 3") != Debug.debugMode3)
+                        {
+                            Debug.debugMode3 = !Debug.debugMode3;
+                            Debug.Msg("Debug Mode 3: Toggled " + (Debug.debugMode3 ? "On" : "Off"), 1);
                         }
                     }
                     if (GUI.Toggle(new Rect(500f, 102f, 150f, 20f), CheatToggles.guiTest, "New Features") != CheatToggles.guiTest)
@@ -394,7 +427,7 @@ namespace PhasmoMelonMod
                             {
                                 lightSwitchr.UseLight();
                             }
-                            MelonLogger.Log("[+] Random Light Use");
+                            Debug.Msg("Random Light Use", 1);
                         }
                         if (GUI.Button(new Rect(650f, 22f, 150f, 20f), "All Lights On") && levelController != null)
                         {
@@ -403,7 +436,7 @@ namespace PhasmoMelonMod
                                 lightSwitchaon.TurnOn(true);
                                 lightSwitchaon.TurnOnNetworked(true);
                             }
-                            MelonLogger.Log("[+] All Lights On");
+                            Debug.Msg("All Lights On", 1);
                         }
                         if (GUI.Button(new Rect(650f, 42f, 150f, 20f), "All Lights Off") && levelController != null)
                         {
@@ -412,20 +445,17 @@ namespace PhasmoMelonMod
                                 lightSwitchaoff.TurnOff();
                                 lightSwitchaoff.TurnOffNetworked(true);
                             }
-                            MelonLogger.Log("[+] All Lights Off");
+                            Debug.Msg("All Lights Off", 1);
                         }
                         if (GUI.Button(new Rect(650f, 62f, 150f, 20f), "Blinking Lights") && levelController != null)
                         {
-                            foreach (LightSwitch lightSwitchsrlb in lightSwitches)
-                            {
-                                lightSwitchsrlb.field_Public_PhotonView_0.RPC("FlickerNetworked", 0, Trolling.getRPCObject(0, false));
-                            }
-                            MelonLogger.Log("[+] Blinking Lights ");
+                            lightSwitchToggle = !lightSwitchToggle;
+                            Debug.Msg("Blinking Lights", 1);
                         }
                         if (GUI.Button(new Rect(650f, 82f, 150f, 20f), "Disable All Features") && levelController != null)
                         {
                             DisableAll();
-                            MelonLogger.Log("[+] Disable All");
+                            Debug.Msg("Disable All", 1);
                         }
                     }
                     if (GUI.Toggle(new Rect(500f, 122f, 150f, 20f), CheatToggles.guiFeatureCollection, "Feature Coll. GUI") != CheatToggles.guiFeatureCollection)
@@ -493,7 +523,7 @@ namespace PhasmoMelonMod
                             {
                                 lightSwitchr.UseLight();
                             }
-                            MelonLogger.Log("[+] Random Light Use");
+                            Debug.Msg("Random Light Use", 1);
                         }
                         if (GUI.Button(new Rect(950f, 22f, 150f, 20f), "All Lights On") && levelController != null)
                         {
@@ -502,7 +532,7 @@ namespace PhasmoMelonMod
                                 lightSwitchaon.TurnOn(true);
                                 lightSwitchaon.TurnOnNetworked(true);
                             }
-                            MelonLogger.Log("[+] All Lights On");
+                            Debug.Msg("All Lights On", 1);
                         }
                         if (GUI.Button(new Rect(950f, 42f, 150f, 20f), "All Lights Off") && levelController != null)
                         {
@@ -511,15 +541,12 @@ namespace PhasmoMelonMod
                                 lightSwitchaoff.TurnOff();
                                 lightSwitchaoff.TurnOffNetworked(true);
                             }
-                            MelonLogger.Log("[+] All Lights Off");
+                            Debug.Msg("All Lights Off", 1);
                         }
                         if (GUI.Button(new Rect(950f, 62f, 150f, 20f), "Blinking Lights") && levelController != null)
                         {
-                            foreach (LightSwitch lightSwitchsrlb in lightSwitches)
-                            {
-                                lightSwitchsrlb.field_Public_PhotonView_0.RPC("FlickerNetworked", 0, Trolling.getRPCObject(0, false));
-                            }
-                            MelonLogger.Log("[+] Blinking Lights");
+                            lightSwitchToggle = !lightSwitchToggle;
+                            Debug.Msg("Blinking Lights", 1);
                         }
                     }
                 }
@@ -530,14 +557,14 @@ namespace PhasmoMelonMod
                         if (GUI.Button(new Rect(500f, 2f, 150f, 20f), "+ 1.000$") && levelController == null)
                         {
                             var money = FileBasedPrefs.GetInt("PlayersMoney", 0);
-                            MelonLogger.Log("[+] Money set from " + money + " to " + (money + 1000));
+                            Debug.Msg("Money set from " + money + " to " + (money + 1000), 1);
                             FileBasedPrefs.SetInt("PlayersMoney", money + 1000);
                             playerStatsManager.UpdateMoney();
                         }
                         if (GUI.Button(new Rect(500f, 22f, 150f, 20f), "- 1.000$") && levelController == null)
                         {
                             var money = FileBasedPrefs.GetInt("PlayersMoney", 0);
-                            MelonLogger.Log("[+] Money set from " + money + " to " + (money - 1000));
+                            Debug.Msg("Money set from " + money + " to " + (money - 1000), 1);
                             FileBasedPrefs.SetInt("PlayersMoney", money - 1000);
                             playerStatsManager.UpdateMoney();
                         }
@@ -546,14 +573,34 @@ namespace PhasmoMelonMod
                             FileBasedPrefs.SetInt("myTotalExp", FileBasedPrefs.GetInt("myTotalExp", 0) + 100);
                             playerStatsManager.UpdateExperience();
                             playerStatsManager.UpdateLevel();
-                            MelonLogger.Log("[+] XP: +100");
+                            Debug.Msg("XP: +100", 1);
                         }
                         if (GUI.Button(new Rect(500f, 62f, 150f, 20f), "- 1.000XP") && levelController == null)
                         {
                             FileBasedPrefs.SetInt("myTotalExp", FileBasedPrefs.GetInt("myTotalExp", 0) - 1000);
                             playerStatsManager.UpdateExperience();
                             playerStatsManager.UpdateLevel();
-                            MelonLogger.Log("[+] XP: -1.000");
+                            Debug.Msg("XP: -1.000", 1);
+                        }
+                        if (GUI.Toggle(new Rect(500f, 82f, 150f, 20f), CheatToggles.guiDebug, "Debug GUI") != CheatToggles.guiDebug)
+                        {
+                            CheatToggles.guiDebug = !CheatToggles.guiDebug;
+                            CheatToggles.guiGhost = false;
+                            CheatToggles.guiGhostTroll = false;
+                            CheatToggles.guiESP = false;
+                            CheatToggles.guiHelper = false;
+                            CheatToggles.guiHelperInfo = false;
+                            CheatToggles.guiTroll = false;
+                            CheatToggles.guiTest = false;
+                            CheatToggles.guiFeatureCollection = false;
+                        }
+                        if (CheatToggles.guiDebug == true)
+                        {
+                            if (GUI.Toggle(new Rect(500f, 102f, 150f, 20f), CheatToggles.enableDebug, "Enable Debug") != CheatToggles.enableDebug)
+                            {
+                                CheatToggles.enableDebug = !CheatToggles.enableDebug;
+                                Debug.Msg("Debug: Toggled " + (CheatToggles.enableDebug ? "On" : "Off"), 1);
+                            }
                         }
                         GUI.SetNextControlName("changeName");
                         playerName = GUI.TextArea(new Rect(650f, 2f, 150f, 20f), playerName);
@@ -561,7 +608,7 @@ namespace PhasmoMelonMod
                         {
                             GUI.FocusControl("changeName");
                             PhotonNetwork.NickName = playerName;
-                            MelonLogger.Log("[+] Set name: " + playerName);
+                            Debug.Msg("Set name: " + playerName, 1);
                         }
                     }
                 }
@@ -598,9 +645,29 @@ namespace PhasmoMelonMod
                 BasicInformations.EnablePlayer();
                 GUI.Label(new Rect(10f, 77f, 300f, 50f), "<color=#00FF00><b>My Sanity:</b> " + (myPlayerSanity ?? "N/A") + "</color>");
             }
+            if(lightSwitchToggle && !lightSwitchRunning)
+            {
+                lightSwitchRunning = true;
+                blinkingLightsRoutine = MelonCoroutines.Start(BlinkingLights());
+            } 
         }
-        public override void OnModSettingsApplied()
+
+        IEnumerator BlinkingLights()
         {
+            if(lightSwitchRunning)
+            {
+                foreach (LightSwitch lightSwitchsrlb in lightSwitches)
+                {
+                    lightSwitchsrlb.field_Public_PhotonView_0.RPC("FlickerNetworked", 0, Trolling.getRPCObject(0, false));
+                    yield return new WaitForSeconds(0.25f);
+                    Debug.Msg("FlickerNetworked", 3);
+                }
+                yield return new WaitForSeconds(0.15f);
+                Debug.Msg("FlickerNetworked end", 3);
+                yield return new WaitForSeconds(0.10f);
+                lightSwitchRunning = false;
+            }
+            yield return null;
         }
 
         private void DisableAll()
@@ -642,95 +709,108 @@ namespace PhasmoMelonMod
             return null;
         }
 
+        private void HandleConfig()
+        {
+            MelonPrefs.RegisterCategory("Settings", "Settings");
+            Debug.Msg("Create Category: Settings", 2);
+
+            MelonPrefs.RegisterBool("Settings", "HotkeysEnabled", true, "Hotkeys Enabled");
+            Debug.Msg("Create Entry: HotkeysEnabled", 2);
+
+            CheatToggles.enableHotkeys = MelonPrefs.GetBool("Settings", "HotkeysEnabled");
+            MelonPrefs.SaveConfig();
+        }
+
         IEnumerator CollectGameObjects()
         {
-            cameraMain = Camera.main;
+            isRunning = true;
+            cameraMain = Camera.main ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Out("cameraMain");
+            Debug.Msg("cameraMain", 3);
 
             dnaEvidences = Object.FindObjectsOfType<DNAEvidence>().ToList<DNAEvidence>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Out("dnaEvidences");
+            Debug.Msg("dnaEvidences", 3);
 
             doors = Object.FindObjectsOfType<Door>().ToList<Door>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Out("doors");
+            Debug.Msg("doors", 3);
 
             fuseBox = Object.FindObjectOfType<FuseBox>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Out("fuseBox");
+            Debug.Msg("fuseBox", 3);
 
             gameController = Object.FindObjectOfType<GameController>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Out("gameController");
+            Debug.Msg("gameController", 3);
 
             ghostAI = Object.FindObjectOfType<GhostAI>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Out("ghostAI");
+            Debug.Msg("ghostAI", 3);
 
             ghostAIs = Object.FindObjectsOfType<GhostAI>().ToList<GhostAI>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Out("ghostAIs");
+            Debug.Msg("ghostAIs", 3);
 
             ghostActivity = Object.FindObjectOfType<GhostActivity>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Out("ghostActivity");
+            Debug.Msg("ghostActivity", 3);
 
             ghostInfo = Object.FindObjectOfType<GhostInfo>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Out("ghostInfo");
+            Debug.Msg("ghostInfo", 3);
 
             levelController = Object.FindObjectOfType<LevelController>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Out("levelController");
+            Debug.Msg("levelController", 3);
 
             lightSwitch = Object.FindObjectOfType<LightSwitch>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Out("lightSwitch");
+            Debug.Msg("lightSwitch", 3);
 
             lightSwitches = Object.FindObjectsOfType<LightSwitch>().ToList<LightSwitch>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Out("lightSwitches");
+            Debug.Msg("lightSwitches", 3);
 
             soundController = Object.FindObjectOfType<SoundController>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Out("soundController");
+            Debug.Msg("soundController", 3);
 
             ouijaBoards = Object.FindObjectsOfType<OuijaBoard>().ToList<OuijaBoard>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Out("ouijaBoards");
+            Debug.Msg("ouijaBoards", 3);
 
             windows = Object.FindObjectsOfType<Window>().ToList<Window>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Out("ouijaBoards");
+            Debug.Msg("ouijaBoards", 3);
 
             if (Object.FindObjectOfType<Player>() != null)
             {
                 player = Object.FindObjectOfType<Player>() ?? null;
                 yield return new WaitForSeconds(0.15f);
-                Debug.Out("player");
+                Debug.Msg("player", 3);
 
                 players = Object.FindObjectsOfType<Player>().ToList<Player>() ?? null;
                 yield return new WaitForSeconds(0.15f);
-                Debug.Out("players");
+                Debug.Msg("players", 3);
 
                 playerStatsManager = Object.FindObjectOfType<PlayerStatsManager>() ?? null;
                 yield return new WaitForSeconds(0.15f);
-                Debug.Out("playerStatsManager");
+                Debug.Msg("playerStatsManager", 3);
 
                 myPlayer = GetLocalPlayer() ?? player;
-                Debug.Out("myPlayer");
+                Debug.Msg("myPlayer", 3);
                 yield return new WaitForSeconds(0.15f);
 
                 playerAnim = myPlayer.field_Public_Animator_0 ?? null;
                 yield return new WaitForSeconds(0.15f);
-                Debug.Out("playerAnim");
+                Debug.Msg("playerAnim", 3);
 
                 if (playerAnim != null)
                 {
                     boneTransform = playerAnim.GetBoneTransform(HumanBodyBones.Head) ?? null;
                     yield return new WaitForSeconds(0.15f);
-                    Debug.Out("boneTransform");
+                    Debug.Msg("boneTransform", 3);
                 }
             }
 
@@ -738,22 +818,16 @@ namespace PhasmoMelonMod
             {
                 photonView = ghostAI.field_Public_PhotonView_0 ?? null;
                 yield return new WaitForSeconds(0.15f);
-                Debug.Out("photonView");
+                Debug.Msg("photonView", 3);
 
                 emf = Object.FindObjectsOfType<EMF>().ToList<EMF>() ?? null;
                 yield return new WaitForSeconds(0.15f);
-                Debug.Out("emf");
-
-                //emfData = Object.FindObjectOfType<EMFData>() ?? null;
-                //yield return new WaitForSeconds(0.15f);
-                //Debug.Out("emfData");
+                Debug.Msg("emf", 3);
             }
 
-            serverManager = Object.FindObjectOfType<ServerManager>() ?? null;
+            isRunning = false;
             yield return new WaitForSeconds(0.15f);
-            Debug.Out("serverManager");
-
-            Debug.Out("-----------------------------");
+            Debug.Msg("-----------------------------", 3);
             yield return null;
         }
 
@@ -782,6 +856,7 @@ namespace PhasmoMelonMod
         public static PhotonView photonView;
         public static Player player;
         public static List<Player> players;
+        public static LobbyManager lobbyManager;
         public static Animator playerAnim;
         public static PlayerStatsManager playerStatsManager;
         public static ServerManager serverManager;
@@ -795,11 +870,18 @@ namespace PhasmoMelonMod
         public static String myPlayerSanity;
         public static String[] mapNames = { "Opening Scene", "Lobby", "Tanglewood Street", "Ridgeview Road House", "Edgefield Street House", "Asylum", "Brownstone High School", "Bleasdale Farmhouse", "Grafton Farmhouse", "Prison" };
         public static String inSight = "";
+        public static bool settingsExist = false;
         public static int initializedScene;
+        private bool lightSwitchToggle = false;
+        private bool lightSwitchRunning = false;
         private static bool gameStarted = false;
         private static object coRoutine;
+        private static object blinkingLightsRoutine;
         private static bool canRun = true;
-        private static bool isRunning = true;
+        private static bool isRunning = false;
         private static String playerName;
+
+        public static ChallengesManager challengesManager;
+        public static int test = 0;
     }
 }
