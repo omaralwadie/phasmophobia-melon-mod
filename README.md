@@ -22,10 +22,10 @@ Place the generated DLL into the MelonLoader Mods folder.
 
 
 **Hotkeys**  
-Insert | Delete | Right Ctrl: Open GUI  
-UP key: Toggle ESP  
-LEFT key: Toggle basic informations  
-DOWN key: Toggle fullbright  
+Insert | Delete | Right Ctrl | RIGHT arrow: Open GUI  
+UP arrow: Toggle ESP  
+LEFT arrow: Toggle basic informations  
+DOWN arrow: Toggle fullbright  
 H key: Force ghost to hunt  
 I key: Force ghost to interact with Door/Book/Objects  
 O key: Force ghost to appear  
@@ -49,11 +49,11 @@ U key: Unlock all exit doors
 
 # How to build
 1. [Install MelonLoader](https://melonwiki.xyz/#/README)
-2. Start the game without Mod, only with MelonLoader. ML will download stuff do handle the IL2CPP from Phasmophobia
-3. Modify `PhasmoMelonMod.csproj` and edit all  
+2. Start the game without Mod, only with MelonLoader. ML will download stuff to handle the IL2CPP from Phasmophobia
+3. Modify `C4PhasmoMod.csproj` and edit all  
 ```<Reference Include="Assembly-CSharp"><HintPath>**.dll</HintPath></Reference>```  
 to link to your Steams Phasmophobia directory
-4. Compile (Release) and move the `obj\Release\PhasmoMelonMod.dll` to the Mod folder inside your Phasmophobia directory
+4. Compile (Release) and move the `bin\Release\C4PhasMod.dll` to the Mod folder inside your Phasmophobia directory
 
 This mod only works with an MelonLoader Bypass or the game will crash because of MelonLoader detection.
 
