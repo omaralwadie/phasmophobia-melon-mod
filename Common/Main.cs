@@ -32,7 +32,7 @@ namespace C4PhasMod
         public override void OnLevelWasInitialized(int index)
         {
             initializedScene = index;
-            if (initializedScene > 1 && canRun)
+            if (initializedScene > 0 && canRun)
             {
                 canRun = false;
                 coRoutine = null;
@@ -429,15 +429,15 @@ namespace C4PhasMod
                             }
                             Debug.Msg("Random Light Use", 1);
                         }
-                        if (GUI.Button(new Rect(650f, 22f, 150f, 20f), "All Lights On") && levelController != null)
-                        {
-                            foreach (LightSwitch lightSwitchaon in lightSwitches)
-                            {
-                                lightSwitchaon.TurnOn(true);
-                                lightSwitchaon.TurnOnNetworked(true);
-                            }
-                            Debug.Msg("All Lights On", 1);
-                        }
+                        //if (GUI.Button(new Rect(650f, 22f, 150f, 20f), "All Lights On") && levelController != null)
+                        //{
+                        //    foreach (LightSwitch lightSwitchaon in lightSwitches)
+                        //    {
+                        //        lightSwitchaon.TurnOn(true);
+                        //        lightSwitchaon.TurnOnNetworked(true);
+                        //    }
+                        //    Debug.Msg("All Lights On", 1);
+                        //}
                         if (GUI.Button(new Rect(650f, 42f, 150f, 20f), "All Lights Off") && levelController != null)
                         {
                             foreach (LightSwitch lightSwitchaoff in lightSwitches)
@@ -525,15 +525,15 @@ namespace C4PhasMod
                             }
                             Debug.Msg("Random Light Use", 1);
                         }
-                        if (GUI.Button(new Rect(950f, 22f, 150f, 20f), "All Lights On") && levelController != null)
-                        {
-                            foreach (LightSwitch lightSwitchaon in lightSwitches)
-                            {
-                                lightSwitchaon.TurnOn(true);
-                                lightSwitchaon.TurnOnNetworked(true);
-                            }
-                            Debug.Msg("All Lights On", 1);
-                        }
+                        //if (GUI.Button(new Rect(950f, 22f, 150f, 20f), "All Lights On") && levelController != null)
+                        //{
+                        //    foreach (LightSwitch lightSwitchaon in lightSwitches)
+                        //    {
+                        //        lightSwitchaon.TurnOn(true);
+                        //        lightSwitchaon.TurnOnNetworked(true);
+                        //    }
+                        //    Debug.Msg("All Lights On", 1);
+                        //}
                         if (GUI.Button(new Rect(950f, 42f, 150f, 20f), "All Lights Off") && levelController != null)
                         {
                             foreach (LightSwitch lightSwitchaoff in lightSwitches)
@@ -552,7 +552,7 @@ namespace C4PhasMod
                 }
                 else
                 {
-                    if (initializedScene == 1)
+                    if (initializedScene == 1 && playerStatsManager != null)
                     {
                         if (GUI.Button(new Rect(500f, 2f, 150f, 20f), "+ 1.000$") && levelController == null)
                         {

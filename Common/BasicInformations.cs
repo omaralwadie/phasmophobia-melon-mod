@@ -159,9 +159,9 @@ namespace C4PhasMod
 
         public static void EnablePlayer()
         {
-            if (Main.initializedScene > 1 && (CheatToggles.enableBIPlayer || CheatToggles.enableBI) && Main.myPlayer.field_Public_Single_0 > -1)
+            if (Main.initializedScene > 1 && (CheatToggles.enableBIPlayer || CheatToggles.enableBI) && Main.myPlayer.field_Public_PlayerSanity_0.field_Public_Single_0 > -1)
             {
-                Main.myPlayerSanity = Math.Round(100 - Main.myPlayer.field_Public_Single_0, 0).ToString();
+                Main.myPlayerSanity = Math.Round(100 - Main.myPlayer.field_Public_PlayerSanity_0.field_Public_Single_0, 0).ToString();
             }
         }
 

@@ -21,7 +21,7 @@ namespace C4PhasMod
             Main.ghostAI.field_Public_Boolean_4 = true;
             Main.ghostAI.field_Public_Boolean_5 = true;
             Main.ghostAI.field_Public_Player_0 = null;
-            Main.ghostAI.ChasingPlayer(true);
+            //Main.ghostAI.ChasingPlayer(true); Method_Public_Void_Boolean_0 Method_Public_Void_Boolean_1
             Main.ghostAI.field_Public_Animator_0.SetBool("isIdle", false);
             Main.ghostAI.field_Public_Animator_0.SetInteger("WalkType", 1);
             Main.ghostAI.field_Public_GhostAudio_0.TurnOnOrOffAppearSource(true);
@@ -44,7 +44,7 @@ namespace C4PhasMod
             Main.ghostAI.field_Public_Animator_0.SetBool("isIdle", true);
             Main.ghostAI.field_Public_GhostAudio_0.TurnOnOrOffAppearSource(false);
             Main.ghostAI.field_Public_GhostAudio_0.PlayOrStopAppearSource(false);
-            Main.ghostAI.ChasingPlayer(false);
+            //Main.ghostAI.ChasingPlayer(false);
             Main.ghostAI.StopGhostFromHunting();
             Main.ghostAI.UnAppear(false);
             Main.ghostAI.ChangeState(GhostAI.EnumNPublicSealedvaidwahufalidothfuapUnique.idle, null, null);
@@ -164,7 +164,7 @@ namespace C4PhasMod
         public static void EventDoorKnock()
         {
             Debug.Msg("Troll->Event: Door knock", 1);
-            PhotonView photonView1 = Main.soundController.field_Public_PhotonView_0;
+            PhotonView photonView1 = Main.soundController.view;
             photonView1.RPC("PlayDoorKnockingSound", RpcTarget.All, getRPCObject(0, false));
             Main.photonView.RPC("PlayKnockingSoundSynced", RpcTarget.All, getRPCObject(0, false, 0, 0, false, true, Main.doors[Random.Range(0, Main.doors.Count)].transform.position));
 
