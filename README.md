@@ -1,5 +1,5 @@
 ﻿# Phasmophobia MelonLoader Mod  
-Only works with a bypass 
+Only works with a [bypass](https://github.com/Cr4nkSt4r/PhasBypass) 
 
 Just a private project to learn some basic programming of Unity Engine Mods with the help of MelonLoader.  
 Place the generated DLL into the MelonLoader Mods folder.   
@@ -62,7 +62,7 @@ This mod only works with an MelonLoader Bypass or the game will crash because of
 # Credits
 **Fullbright:** `ShieldSupporter` for sharing the code from `Plagues`  
 **2D Box ESP idea:** `EBro912`  
-**Others:** `HYPExMon5ter`, `Martin951`, `tecnocat`
+**Others:** `HYPExMon5ter`, `tecnocat`, `Jbosh123`, `Martin951`, `Unk0wnV3rm`  
 
 
 # License
