@@ -11,12 +11,18 @@ namespace C4PhasMod
             {
                 if (Main.levelController != null && Main.ghostInfo != null && firstRun && CheatToggles.enableBIGhost)
                 {
+                    Debug.Msg("ghostNameAge", 3);
                     if (Main.ghostInfo.field_Public_ValueTypePublicSealedObInBoStInBoInInInUnique_0.field_Public_String_0 != "" && Main.ghostInfo.field_Public_ValueTypePublicSealedObInBoStInBoInInInUnique_0.field_Public_Int32_0 > 0)
                         Main.ghostNameAge = Main.ghostInfo.field_Public_ValueTypePublicSealedObInBoStInBoInInInUnique_0.field_Public_String_0 + " - " + Main.ghostInfo.field_Public_ValueTypePublicSealedObInBoStInBoInInInUnique_0.field_Public_Int32_0.ToString();
+                    
+                    Debug.Msg("ghostType", 3);
                     if (Main.ghostInfo.field_Public_ValueTypePublicSealedObInBoStInBoInInInUnique_0.field_Public_EnumNPublicSealedvanoSpWrPhPoBaJiMaReUnique_0.ToString() != "none")
                         Main.ghostType = Main.ghostInfo.field_Public_ValueTypePublicSealedObInBoStInBoInInInUnique_0.field_Public_EnumNPublicSealedvanoSpWrPhPoBaJiMaReUnique_0.ToString();
+                    
+                    Debug.Msg("ghostIsShy", 3);
                     Main.ghostIsShy = (Main.ghostInfo.field_Public_ValueTypePublicSealedObInBoStInBoInInInUnique_0.field_Public_Boolean_1 ? "People that are alone" : "Everyone");
-
+                    
+                    Debug.Msg("evidence", 3);
                     switch (Main.ghostInfo.field_Public_ValueTypePublicSealedObInBoStInBoInInInUnique_0.field_Public_EnumNPublicSealedvanoSpWrPhPoBaJiMaReUnique_0)
                     {
                         case ValueTypePublicSealedObInBoStInBoInInInUnique.EnumNPublicSealedvanoSpWrPhPoBaJiMaReUnique.Spirit:
@@ -58,11 +64,21 @@ namespace C4PhasMod
                         default:
                             break;
                     }
-                    if (Main.ghostNameAge != "" && Main.ghostType != "")
+                    Debug.Msg("firstRun", 3);
+                    if (Main.ghostNameAge != "" && Main.ghostType != "" && Main.evidence != "" && Main.ghostIsShy != "")
+                    {
+                        Debug.Msg("firstFalse", 3);
                         firstRun = false;
+                    }     
+                    else
+                    {
+                        Debug.Msg("firstTrue", 3);
+                        firstRun = true;
+                    }
                 }
                 if (Main.levelController != null && Main.ghostAI != null && CheatToggles.enableBIGhost)
                 {
+                    Debug.Msg("ghostState", 3);
                     switch (Main.ghostAI.field_Public_EnumNPublicSealedvaidwahufalidothfuapUnique_0)
                     {
                         case GhostAI.EnumNPublicSealedvaidwahufalidothfuapUnique.idle:
@@ -161,6 +177,7 @@ namespace C4PhasMod
         {
             if (Main.initializedScene > 1 && (CheatToggles.enableBIPlayer || CheatToggles.enableBI) && Main.myPlayer.field_Public_PlayerSanity_0.field_Public_Single_0 > -1)
             {
+                Debug.Msg("myPlayerSanity", 3);
                 Main.myPlayerSanity = Math.Round(100 - Main.myPlayer.field_Public_PlayerSanity_0.field_Public_Single_0, 0).ToString();
             }
         }
@@ -170,6 +187,7 @@ namespace C4PhasMod
             if (Main.initializedScene > 1 && Main.levelController != null && MissionManager.field_Public_Static_MissionManager_0.field_Public_List_1_Mission_0 != null && CheatToggles.enableBIMissions)
             {
                 int missionNum = 1;
+                Debug.Msg("missions", 3);
                 foreach (Mission mission in MissionManager.field_Public_Static_MissionManager_0.field_Public_List_1_Mission_0)
                 {
                     GUI.Label(new Rect(10f, 80f + (float)missionNum * 15f, 600f, 50f), string.Concat(new object[]

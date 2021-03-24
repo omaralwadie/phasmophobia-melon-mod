@@ -41,7 +41,7 @@ namespace C4PhasMod
                 {
                     while (true)
                     {
-                        if(!isRunning)
+                        if (!isRunning)
                         {
                             coRoutine = MelonCoroutines.Start(CollectGameObjects());
                         }
@@ -220,10 +220,6 @@ namespace C4PhasMod
                             if (GUI.Button(new Rect(800f, 62f, 150f, 20f), "Unappear") && levelController != null)
                             {
                                 Trolling.UnAppear();
-                            }
-                            if (GUI.Button(new Rect(800f, 82f, 150f, 20f), "FuseBox") && levelController != null)
-                            {
-                                Trolling.FuseBox();
                             }
                         }
                     }
@@ -429,15 +425,6 @@ namespace C4PhasMod
                             }
                             Debug.Msg("Random Light Use", 1);
                         }
-                        //if (GUI.Button(new Rect(650f, 22f, 150f, 20f), "All Lights On") && levelController != null)
-                        //{
-                        //    foreach (LightSwitch lightSwitchaon in lightSwitches)
-                        //    {
-                        //        lightSwitchaon.TurnOn(true);
-                        //        lightSwitchaon.TurnOnNetworked(true);
-                        //    }
-                        //    Debug.Msg("All Lights On", 1);
-                        //}
                         if (GUI.Button(new Rect(650f, 42f, 150f, 20f), "All Lights Off") && levelController != null)
                         {
                             foreach (LightSwitch lightSwitchaoff in lightSwitches)
@@ -488,10 +475,6 @@ namespace C4PhasMod
                         {
                             Trolling.UnAppear();
                         }
-                        if (GUI.Button(new Rect(650f, 82f, 150f, 20f), "FuseBox") && levelController != null)
-                        {
-                            Trolling.FuseBox();
-                        }
                         if (GUI.Button(new Rect(800f, 2f, 150f, 20f), "Lock Exit Doors") && levelController != null)
                         {
                             Trolling.LockDoors(1);
@@ -525,15 +508,6 @@ namespace C4PhasMod
                             }
                             Debug.Msg("Random Light Use", 1);
                         }
-                        //if (GUI.Button(new Rect(950f, 22f, 150f, 20f), "All Lights On") && levelController != null)
-                        //{
-                        //    foreach (LightSwitch lightSwitchaon in lightSwitches)
-                        //    {
-                        //        lightSwitchaon.TurnOn(true);
-                        //        lightSwitchaon.TurnOnNetworked(true);
-                        //    }
-                        //    Debug.Msg("All Lights On", 1);
-                        //}
                         if (GUI.Button(new Rect(950f, 42f, 150f, 20f), "All Lights Off") && levelController != null)
                         {
                             foreach (LightSwitch lightSwitchaoff in lightSwitches)
@@ -596,12 +570,28 @@ namespace C4PhasMod
                         }
                         if (CheatToggles.guiDebug == true)
                         {
-                            if (GUI.Toggle(new Rect(500f, 102f, 150f, 20f), CheatToggles.enableDebug, "Enable Debug") != CheatToggles.enableDebug)
+                            if (GUI.Toggle(new Rect(550f, 102f, 150f, 20f), CheatToggles.enableDebug, "Enable Debug") != CheatToggles.enableDebug)
                             {
                                 CheatToggles.enableDebug = !CheatToggles.enableDebug;
                                 Debug.Msg("Debug: Toggled " + (CheatToggles.enableDebug ? "On" : "Off"), 1);
                             }
+                            if (GUI.Toggle(new Rect(550f, 122f, 150f, 20f), Debug.debugMode1, "Debug Mode 1") != Debug.debugMode1)
+                            {
+                                Debug.debugMode1 = !Debug.debugMode1;
+                                Debug.Msg("Debug Mode 1: Toggled " + (Debug.debugMode1 ? "On" : "Off"), 1);
+                            }
+                            if (GUI.Toggle(new Rect(550f, 142f, 150f, 20f), Debug.debugMode2, "Debug Mode 2") != Debug.debugMode2)
+                            {
+                                Debug.debugMode2 = !Debug.debugMode2;
+                                Debug.Msg("Debug Mode 2: Toggled " + (Debug.debugMode2 ? "On" : "Off"), 1);
+                            }
+                            if (GUI.Toggle(new Rect(550f, 162f, 150f, 20f), Debug.debugMode3, "Debug Mode 3") != Debug.debugMode3)
+                            {
+                                Debug.debugMode3 = !Debug.debugMode3;
+                                Debug.Msg("Debug Mode 3: Toggled " + (Debug.debugMode3 ? "On" : "Off"), 1);
+                            }
                         }
+
                         GUI.SetNextControlName("changeName");
                         playerName = GUI.TextArea(new Rect(650f, 2f, 150f, 20f), playerName);
                         if (GUI.Button(new Rect(650f, 22f, 150f, 20f), "Change Name"))
@@ -634,7 +624,11 @@ namespace C4PhasMod
             }
             else
             {
-                BasicInformations.DisableGhost();
+                if (initializedScene > 1)
+                {
+                    Debug.Msg("BasicInformations.DisableGhost", 3);
+                    BasicInformations.DisableGhost();
+                }
             }
             if (CheatToggles.enableBIMissions)
             {
@@ -645,25 +639,27 @@ namespace C4PhasMod
                 BasicInformations.EnablePlayer();
                 GUI.Label(new Rect(10f, 77f, 300f, 50f), "<color=#00FF00><b>My Sanity:</b> " + (myPlayerSanity ?? "N/A") + "</color>");
             }
-            if(lightSwitchToggle && !lightSwitchRunning)
+            if (lightSwitchToggle && !lightSwitchRunning)
             {
+                Debug.Msg("lightSwitchRunningTrue", 3);
                 lightSwitchRunning = true;
                 blinkingLightsRoutine = MelonCoroutines.Start(BlinkingLights());
-            } 
+            }
         }
 
         IEnumerator BlinkingLights()
         {
-            if(lightSwitchRunning)
+            if (lightSwitchRunning)
             {
                 foreach (LightSwitch lightSwitchsrlb in lightSwitches)
                 {
+                    Debug.Msg("FlickerNetworked", 3);
                     lightSwitchsrlb.field_Public_PhotonView_0.RPC("FlickerNetworked", 0, Trolling.getRPCObject(0, false));
                     yield return new WaitForSeconds(0.25f);
-                    Debug.Msg("FlickerNetworked", 3);
+
                 }
-                yield return new WaitForSeconds(0.15f);
                 Debug.Msg("FlickerNetworked end", 3);
+                yield return new WaitForSeconds(0.15f);
                 yield return new WaitForSeconds(0.10f);
                 lightSwitchRunning = false;
             }
@@ -672,6 +668,7 @@ namespace C4PhasMod
 
         private void DisableAll()
         {
+            Debug.Msg("DisableAll", 3);
             CheatToggles.enableBI = false;
             CheatToggles.enableBIGhost = false;
             CheatToggles.enableBIMissions = false;
@@ -687,10 +684,13 @@ namespace C4PhasMod
 
             CheatToggles.enableFullbright = false;
             Fullbright.Disable();
+
+            BasicInformations.DisableGhost();
         }
 
         private Player GetLocalPlayer()
         {
+            Debug.Msg("GetLocalPlayer", 3);
             if (players == null || players.Count == 0)
             {
                 return null;
@@ -717,117 +717,134 @@ namespace C4PhasMod
             MelonPrefs.RegisterBool("Settings", "HotkeysEnabled", true, "Hotkeys Enabled");
             Debug.Msg("Create Entry: HotkeysEnabled", 2);
 
+            MelonPrefs.RegisterBool("Settings", "DebugEnabled", true, "Debug Enabled");
+            Debug.Msg("Create Entry: DebugEnabled", 2);
+
+            MelonPrefs.RegisterBool("Settings", "DebugM1Enabled", true, "Debug M1 Enabled");
+            Debug.Msg("Create Entry: Debug1Enabled", 2);
+
+            MelonPrefs.RegisterBool("Settings", "DebugM2Enabled", true, "Debug M2 Enabled");
+            Debug.Msg("Create Entry: Debug2Enabled", 2);
+
+            MelonPrefs.RegisterBool("Settings", "DebugM3Enabled", false, "Debug M3 Enabled");
+            Debug.Msg("Create Entry: Debug3Enabled", 2);
+
             CheatToggles.enableHotkeys = MelonPrefs.GetBool("Settings", "HotkeysEnabled");
+            CheatToggles.enableDebug = MelonPrefs.GetBool("Settings", "DebugEnabled");
+
+            Debug.debugMode1 = MelonPrefs.GetBool("Settings", "DebugM1Enabled");
+            Debug.debugMode2 = MelonPrefs.GetBool("Settings", "DebugM2Enabled");
+            Debug.debugMode3 = MelonPrefs.GetBool("Settings", "DebugM3Enabled");
+
             MelonPrefs.SaveConfig();
         }
 
         IEnumerator CollectGameObjects()
         {
+
+            Debug.Msg("isRunningTrue", 3);
             isRunning = true;
+            Debug.Msg("cameraMain", 3);
             cameraMain = Camera.main ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Msg("cameraMain", 3);
 
+            Debug.Msg("dnaEvidences", 3);
             dnaEvidences = Object.FindObjectsOfType<DNAEvidence>().ToList<DNAEvidence>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Msg("dnaEvidences", 3);
 
+            Debug.Msg("doors", 3);
             doors = Object.FindObjectsOfType<Door>().ToList<Door>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Msg("doors", 3);
 
+            Debug.Msg("fuseBox", 3);
             fuseBox = Object.FindObjectOfType<FuseBox>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Msg("fuseBox", 3);
 
+            Debug.Msg("gameController", 3);
             gameController = Object.FindObjectOfType<GameController>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Msg("gameController", 3);
 
+            Debug.Msg("ghostAI", 3);
             ghostAI = Object.FindObjectOfType<GhostAI>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Msg("ghostAI", 3);
 
+            Debug.Msg("ghostAIs", 3);
             ghostAIs = Object.FindObjectsOfType<GhostAI>().ToList<GhostAI>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Msg("ghostAIs", 3);
 
+            Debug.Msg("ghostActivity", 3);
             ghostActivity = Object.FindObjectOfType<GhostActivity>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Msg("ghostActivity", 3);
 
+            Debug.Msg("ghostInfo", 3);
             ghostInfo = Object.FindObjectOfType<GhostInfo>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Msg("ghostInfo", 3);
 
+            Debug.Msg("levelController", 3);
             levelController = Object.FindObjectOfType<LevelController>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Msg("levelController", 3);
 
+            Debug.Msg("lightSwitch", 3);
             lightSwitch = Object.FindObjectOfType<LightSwitch>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Msg("lightSwitch", 3);
 
+            Debug.Msg("lightSwitches", 3);
             lightSwitches = Object.FindObjectsOfType<LightSwitch>().ToList<LightSwitch>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Msg("lightSwitches", 3);
 
+            Debug.Msg("soundController", 3);
             soundController = Object.FindObjectOfType<SoundController>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Msg("soundController", 3);
 
+            Debug.Msg("ouijaBoards", 3);
             ouijaBoards = Object.FindObjectsOfType<OuijaBoard>().ToList<OuijaBoard>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Msg("ouijaBoards", 3);
 
+            Debug.Msg("ouijaBoards", 3);
             windows = Object.FindObjectsOfType<Window>().ToList<Window>() ?? null;
             yield return new WaitForSeconds(0.15f);
-            Debug.Msg("ouijaBoards", 3);
 
             if (Object.FindObjectOfType<Player>() != null)
             {
+                Debug.Msg("player", 3);
                 player = Object.FindObjectOfType<Player>() ?? null;
                 yield return new WaitForSeconds(0.15f);
-                Debug.Msg("player", 3);
 
+                Debug.Msg("players", 3);
                 players = Object.FindObjectsOfType<Player>().ToList<Player>() ?? null;
                 yield return new WaitForSeconds(0.15f);
-                Debug.Msg("players", 3);
 
+                Debug.Msg("playerStatsManager", 3);
                 playerStatsManager = Object.FindObjectOfType<PlayerStatsManager>() ?? null;
                 yield return new WaitForSeconds(0.15f);
-                Debug.Msg("playerStatsManager", 3);
 
-                myPlayer = GetLocalPlayer() ?? player;
                 Debug.Msg("myPlayer", 3);
+                myPlayer = GetLocalPlayer() ?? player;
                 yield return new WaitForSeconds(0.15f);
 
+                Debug.Msg("playerAnim", 3);
                 playerAnim = myPlayer.field_Public_Animator_0 ?? null;
                 yield return new WaitForSeconds(0.15f);
-                Debug.Msg("playerAnim", 3);
 
                 if (playerAnim != null)
                 {
+                    Debug.Msg("boneTransform", 3);
                     boneTransform = playerAnim.GetBoneTransform(HumanBodyBones.Head) ?? null;
                     yield return new WaitForSeconds(0.15f);
-                    Debug.Msg("boneTransform", 3);
                 }
             }
 
             if (levelController != null)
             {
-                photonView = ghostAI.field_Public_PhotonView_0 ?? null;
-                yield return new WaitForSeconds(0.15f);
-                Debug.Msg("photonView", 3);
-
+                Debug.Msg("emf", 3);
                 emf = Object.FindObjectsOfType<EMF>().ToList<EMF>() ?? null;
                 yield return new WaitForSeconds(0.15f);
-                Debug.Msg("emf", 3);
             }
 
             isRunning = false;
             yield return new WaitForSeconds(0.15f);
             Debug.Msg("-----------------------------", 3);
+
             yield return null;
         }
 

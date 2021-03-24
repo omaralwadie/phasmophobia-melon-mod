@@ -82,35 +82,29 @@ namespace C4PhasMod
             switch (lockState)
             {
                 case 1:
-                    CloseAllExitDoors();
                     Debug.Msg("Troll->CloseAllExitDoors", 1);
+                    CloseAllExitDoors();
                     break;
                 case 2:
-                    CloseAllRoomDoors();
                     Debug.Msg("Troll->CloseAllRoomDoors", 1);
+                    CloseAllRoomDoors();
                     break;
                 case 3:
-                    OpenAllExitDoors();
                     Debug.Msg("Troll->OpenAllExitDoors", 1);
+                    OpenAllExitDoors();
                     break;
                 case 4:
-                    OpenAllRoomDoors();
                     Debug.Msg("Troll->OpenAllRoomDoors", 1);
+                    OpenAllRoomDoors();
                     break;
                 default:
                     break;
             }
         }
 
-        public static void FuseBox()
-        {
-            Debug.Msg("Troll->FuseBox: Triggered", 1);
-            PhotonView photonView = Main.fuseBox.view;
-            photonView.RPC("UseNetworked", RpcTarget.All, getRPCObject(1, false));
-        }
-
         public static void CloseAllExitDoors()
         {
+            Debug.Msg("CloseAllExitDoors", 3);
             foreach (Door exitDoor in Main.levelController.field_Public_ArrayOf_Door_1)
             {
                 CloseLockDoor(exitDoor);
@@ -118,6 +112,7 @@ namespace C4PhasMod
         }
         public static void CloseAllRoomDoors()
         {
+            Debug.Msg("CloseAllRoomDoors", 3);
             foreach (Door door in Main.doors)
             {
                 CloseLockDoor(door);
@@ -125,6 +120,7 @@ namespace C4PhasMod
         }
         public static void OpenAllExitDoors()
         {
+            Debug.Msg("OpenAllExitDoors", 3);
             foreach (Door exitDoor in Main.levelController.field_Public_ArrayOf_Door_1)
             {
                 OpenUnlockDoor(exitDoor);
@@ -132,6 +128,7 @@ namespace C4PhasMod
         }
         public static void OpenAllRoomDoors()
         {
+            Debug.Msg("OpenAllRoomDoors", 3);
             foreach (Door door in Main.doors)
             {
                 OpenUnlockDoor(door);
@@ -140,6 +137,7 @@ namespace C4PhasMod
 
         private static void CloseLockDoor(Door door)
         {
+            Debug.Msg("CloseLockDoor", 3);
             PhotonView photonView = door.field_Public_PhotonView_0;
             door.DisableOrEnableDoor(false);
             door.LockDoor();
@@ -155,6 +153,7 @@ namespace C4PhasMod
 
         private static void OpenUnlockDoor(Door door)
         {
+            Debug.Msg("OpenUnlockDoor", 3);
             PhotonView photonView = door.field_Public_PhotonView_0;
             door.DisableOrEnableDoor(true);
             door.DisableOrEnableCollider(true);
@@ -166,8 +165,6 @@ namespace C4PhasMod
             Debug.Msg("Troll->Event: Door knock", 1);
             PhotonView photonView1 = Main.soundController.view;
             photonView1.RPC("PlayDoorKnockingSound", RpcTarget.All, getRPCObject(0, false));
-            Main.photonView.RPC("PlayKnockingSoundSynced", RpcTarget.All, getRPCObject(0, false, 0, 0, false, true, Main.doors[Random.Range(0, Main.doors.Count)].transform.position));
-
         }
 
         private static Vector3 getDestination()
